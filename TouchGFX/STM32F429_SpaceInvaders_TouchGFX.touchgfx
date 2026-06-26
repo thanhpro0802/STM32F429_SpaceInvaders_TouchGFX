@@ -210,11 +210,23 @@
           {
             "Type": "Image",
             "Name": "itemDrop",
-            "X": 0,
-            "Y": 0,
             "Width": 16,
             "Height": 16,
             "RelativeFilename": "item_shield.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "playerMissile",
+            "Width": 12,
+            "Height": 24,
+            "RelativeFilename": "bullet_missile.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "explosionLarge",
+            "Width": 48,
+            "Height": 48,
+            "RelativeFilename": "explosion_large.png"
           }
         ],
         "Interactions": []

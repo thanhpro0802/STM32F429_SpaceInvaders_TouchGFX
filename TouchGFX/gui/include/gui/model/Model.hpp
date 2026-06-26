@@ -39,7 +39,17 @@ struct GameState
     int16_t itemX;
     int16_t itemY;
     bool itemActive;
-    uint8_t itemType;      // 0: Shield, 1: Star, 2: Bolt
+    uint8_t itemType;      // 0: Shield, 1: Star, 2: Bolt, 3: Missile
+
+    // Thong tin ten lua cua nguoi choi
+    int16_t missileX;
+    int16_t missileY;
+    bool missileActive;
+
+    // Thong tin vu no lon (AOE Explosion cua ten lua)
+    int16_t largeExplosionX;
+    int16_t largeExplosionY;
+    int8_t largeExplosionTimer;
 };
 
 class ModelListener;

@@ -162,8 +162,10 @@ void Screen1View::updateGameState(const GameState& state)
             itemBmp = BITMAP_ITEM_SHIELD_ID;
         else if (state.itemType == 1)
             itemBmp = BITMAP_ITEM_STAR_ID;
-        else
+        else if (state.itemType == 2)
             itemBmp = BITMAP_ITEM_BOLT_ID;
+        else
+            itemBmp = BITMAP_ITEM_MISSILE_ID; // Item ten lua moi
             
         itemDrop.setBitmap(touchgfx::Bitmap(itemBmp));
 
@@ -172,6 +174,22 @@ void Screen1View::updateGameState(const GameState& state)
             itemDrop.invalidate();
             itemDrop.setXY(state.itemX, state.itemY);
             itemDrop.invalidate();
+        }
+    }
+
+    // Cap nhat dan ten lua cua nguoi choi
+    if (playerMissile.isVisible() != state.missileActive)
+    {
+        playerMissile.setVisible(state.missileActive);
+        playerMissile.invalidate();
+    }
+    if (state.missileActive)
+    {
+        if (playerMissile.getX() != state.missileX || playerMissile.getY() != state.missileY)
+        {
+            playerMissile.invalidate();
+            playerMissile.setXY(state.missileX, state.missileY);
+            playerMissile.invalidate();
         }
     }
 
@@ -186,6 +204,19 @@ void Screen1View::updateGameState(const GameState& state)
     {
         explosionEffect.setXY(state.explosionX, state.explosionY);
         explosionEffect.invalidate();
+    }
+
+    // Cap nhat hieu ung vu no lon (Ten lua)
+    bool isLargeExploding = (state.largeExplosionTimer > 0);
+    if (explosionLarge.isVisible() != isLargeExploding)
+    {
+        explosionLarge.setVisible(isLargeExploding);
+        explosionLarge.invalidate();
+    }
+    if (isLargeExploding)
+    {
+        explosionLarge.setXY(state.largeExplosionX, state.largeExplosionY);
+        explosionLarge.invalidate();
     }
 
     // Cap nhat tung con quai vat

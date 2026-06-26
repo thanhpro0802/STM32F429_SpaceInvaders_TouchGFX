@@ -28,6 +28,16 @@ Model::Model() : modelListener(0)
     state.itemY = 0;
     state.itemActive = false;
     state.itemType = 0;
+
+    // Khoi tao ten lua (de thanh vien khac code logic)
+    state.missileX = 0;
+    state.missileY = 0;
+    state.missileActive = false;
+
+    // Khoi tao vu no lon
+    state.largeExplosionX = 0;
+    state.largeExplosionY = 0;
+    state.largeExplosionTimer = 0;
     
     // Khoi tao 10 con quai: 2 hang x 5 cot
     // Moi con cach nhau khoang 35px theo chieu ngang, hang 1 Y=40, hang 2 Y=70
