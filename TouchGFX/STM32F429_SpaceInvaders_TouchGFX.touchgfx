@@ -206,6 +206,15 @@
             "Width": 24,
             "Height": 24,
             "RelativeFilename": "explosion.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "itemDrop",
+            "X": 0,
+            "Y": 0,
+            "Width": 16,
+            "Height": 16,
+            "RelativeFilename": "item_shield.png"
           }
         ],
         "Interactions": []

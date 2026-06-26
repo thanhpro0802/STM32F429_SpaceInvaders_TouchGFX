@@ -34,6 +34,12 @@ struct GameState
     int16_t explosionX;
     int16_t explosionY;
     int8_t explosionTimer; // Neu > 0 thi vu no dang dien ra
+
+    // Thong tin vat pham roi (Items/Power-ups)
+    int16_t itemX;
+    int16_t itemY;
+    bool itemActive;
+    uint8_t itemType;      // 0: Shield, 1: Star, 2: Bolt
 };
 
 class ModelListener;

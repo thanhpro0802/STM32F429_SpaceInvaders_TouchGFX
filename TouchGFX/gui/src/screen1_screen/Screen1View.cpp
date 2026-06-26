@@ -148,6 +148,33 @@ void Screen1View::updateGameState(const GameState& state)
         }
     }
 
+    // Cap nhat vat pham roi (Items)
+    if (itemDrop.isVisible() != state.itemActive)
+    {
+        itemDrop.setVisible(state.itemActive);
+        itemDrop.invalidate();
+    }
+    if (state.itemActive)
+    {
+        // Thay doi anh bitmap tuong ung voi loai vat pham
+        touchgfx::BitmapId itemBmp;
+        if (state.itemType == 0)
+            itemBmp = BITMAP_ITEM_SHIELD_ID;
+        else if (state.itemType == 1)
+            itemBmp = BITMAP_ITEM_STAR_ID;
+        else
+            itemBmp = BITMAP_ITEM_BOLT_ID;
+            
+        itemDrop.setBitmap(touchgfx::Bitmap(itemBmp));
+
+        if (itemDrop.getX() != state.itemX || itemDrop.getY() != state.itemY)
+        {
+            itemDrop.invalidate();
+            itemDrop.setXY(state.itemX, state.itemY);
+            itemDrop.invalidate();
+        }
+    }
+
     // Cap nhat hieu ung vu no
     bool isExploding = (state.explosionTimer > 0);
     if (explosionEffect.isVisible() != isExploding)

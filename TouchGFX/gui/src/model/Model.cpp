@@ -22,6 +22,12 @@ Model::Model() : modelListener(0)
     state.explosionX = 0;
     state.explosionY = 0;
     state.explosionTimer = 0;
+
+    // Khoi tao vat pham roi
+    state.itemX = 0;
+    state.itemY = 0;
+    state.itemActive = false;
+    state.itemType = 0;
     
     // Khoi tao 10 con quai: 2 hang x 5 cot
     // Moi con cach nhau khoang 35px theo chieu ngang, hang 1 Y=40, hang 2 Y=70
@@ -57,6 +63,53 @@ void Model::tick()
         state.explosionTimer--;
     }
 
+    // 0b. Logic vat pham roi tu tu xuong duoi man hinh
+    if (state.itemActive && !state.isGameOver)
+    {
+        state.itemY += 2; // Vat pham roi voi toc do 2px/tick
+        
+        // Kiem tra vat pham bay ra khoi man hinh duoi (Y > 320)
+        if (state.itemY > 320)
+        {
+            state.itemActive = false;
+        }
+        else
+        {
+            // Kiem tra va cham voi tau nguoi choi (X = playerX, Y = 280, W = 30, H = 26)
+            // Kich thuoc vat pham: 16x16 px
+            int px = state.playerX;
+            int py = 280;
+            if (state.itemX + 16 >= px && state.itemX <= px + 30 &&
+                state.itemY + 16 >= py && state.itemY <= py + 26)
+            {
+                // Tau an duoc vat pham!
+                state.itemActive = false;
+                
+                // Gia lap hieu ung an vat pham:
+                if (state.itemType == 0) // Shield
+                {
+                    // Cong them mang song ( lives + 1, toi da 9 mang)
+                    if (state.lives < 9)
+                    {
+                        state.lives++;
+                    }
+                }
+                else if (state.itemType == 1) // Star
+                {
+                    // Cong them 500 diem thuong
+                    state.score += 500;
+                    if (state.score > 9999) state.score = 9999;
+                }
+                else if (state.itemType == 2) // Bolt
+                {
+                    // Cong them 1000 diem thuong
+                    state.score += 1000;
+                    if (state.score > 9999) state.score = 9999;
+                }
+            }
+        }
+    }
+
     // 1. Logic cap nhat dan bay va check va cham
     if (state.bulletActive && !state.isGameOver)
     {
@@ -83,6 +136,19 @@ void Model::tick()
                     state.explosionX = ex + 1; // Canh giua vu no (vu no 24x24, quai 26x22)
                     state.explosionY = ey - 1;
                     state.explosionTimer = 8; // Vu no se ton tai trong 8 tick (khoang 0.13 giay)
+
+                    // Roi vat pham voi ty le 50% neu tren man hinh dang khong co vat pham nao
+                    if (!state.itemActive)
+                    {
+                        // Gia lap ti le roi bang cach dung vi tri/diem so
+                        if ((state.score + i) % 2 == 0)
+                        {
+                            state.itemActive = true;
+                            state.itemX = ex + 5; // Căn giữa vật phẩm rơi (quái 26px, vật phẩm 16px)
+                            state.itemY = ey;
+                            state.itemType = (state.score / 100) % 3; // Luan phien cac loai vat pham
+                        }
+                    }
                     
                     // Cong diem so
                     state.score += 100;
@@ -210,6 +276,11 @@ void Model::resetGame()
     state.explosionX = 0;
     state.explosionY = 0;
     state.explosionTimer = 0;
+    
+    state.itemX = 0;
+    state.itemY = 0;
+    state.itemActive = false;
+    state.itemType = 0;
     
     state.enemyDirection = 1;
     for (int i = 0; i < MAX_ENEMIES; i++)
