@@ -50,6 +50,14 @@ Model::Model() : modelListener(0)
         state.enemies[i].y = 40 + row * 25;
         state.enemies[i].alive = true;
         state.enemies[i].type = (row % 3); // Cung 1 hang (row) se co cung loai quai vat (type)
+        
+        // Khoi tao HP theo tung loai quai (Thanh vien khac se viet logic tru HP khi va cham)
+        if (state.enemies[i].type == 0)
+            state.enemies[i].hp = 1;
+        else if (state.enemies[i].type == 1)
+            state.enemies[i].hp = 2;
+        else
+            state.enemies[i].hp = 3;
     }
 }
 

@@ -11,6 +11,7 @@ struct Enemy
     int16_t y;
     bool alive;
     uint8_t type; // 0: Red, 1: Blue, 2: Spikey
+    int8_t hp;    // Mau cua quai vat
 };
 
 // Struct dung chung de trao doi du lieu giua Logic, Ngoai vi va GUI
