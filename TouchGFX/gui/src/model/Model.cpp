@@ -1,0 +1,224 @@
+#include <gui/model/Model.hpp>
+#include <gui/model/ModelListener.hpp>
+
+Model::Model() : modelListener(0)
+{
+    // Khoi tao gia tri mac dinh cho game
+    state.playerX = 105;
+    state.score = 0;
+    state.lives = 3;
+    state.isGameOver = false;
+    state.playBuzzerBeep = false;
+    highScores[0] = 0;
+    highScores[1] = 0;
+    highScores[2] = 0;
+    
+    // Khoi tao dan cua nguoi choi
+    state.bulletX = 0;
+    state.bulletY = 0;
+    state.bulletActive = false;
+
+    // Khoi tao vu no
+    state.explosionX = 0;
+    state.explosionY = 0;
+    state.explosionTimer = 0;
+    
+    // Khoi tao 10 con quai: 2 hang x 5 cot
+    // Moi con cach nhau khoang 35px theo chieu ngang, hang 1 Y=40, hang 2 Y=70
+    state.enemyDirection = 1; // Mac dinh di qua phai
+    for (int i = 0; i < MAX_ENEMIES; i++)
+    {
+        int row = i / 5;
+        int col = i % 5;
+        state.enemies[i].x = 15 + col * 35;
+        state.enemies[i].y = 40 + row * 25;
+        state.enemies[i].alive = true;
+        state.enemies[i].type = (row % 3); // Cung 1 hang (row) se co cung loai quai vat (type)
+    }
+}
+
+void Model::fireBullet()
+{
+    // Chi cho phep ban 1 vien dan tren man hinh tai mot thoi diem
+    if (!state.bulletActive && !state.isGameOver)
+    {
+        state.bulletActive = true;
+        state.bulletX = state.playerX + 13; // Canh giua tau (tau rong 30px, dan rong 4px -> 30/2 - 4/2 = 13px)
+        state.bulletY = 264; // Dau tau (tau o Y=280, dan cao 16px -> 280 - 16 = 264px)
+    }
+}
+
+static int tickCount = 0;
+void Model::tick()
+{
+    // 0. Giam timer vu no neu dang dien ra
+    if (state.explosionTimer > 0)
+    {
+        state.explosionTimer--;
+    }
+
+    // 1. Logic cap nhat dan bay va check va cham
+    if (state.bulletActive && !state.isGameOver)
+    {
+        state.bulletY -= 6; // Dan bay len voi van toc 6px/tick
+        
+        // Kiem tra va cham voi tung con quai
+        for (int i = 0; i < MAX_ENEMIES; i++)
+        {
+            if (state.enemies[i].alive)
+            {
+                // Toa do quai vat (rong 26, cao 22)
+                int ex = state.enemies[i].x;
+                int ey = state.enemies[i].y;
+                
+                // Kiem tra va cham AABB (Box Collision)
+                if (state.bulletX + 4 >= ex && state.bulletX <= ex + 26 &&
+                    state.bulletY + 16 >= ey && state.bulletY <= ey + 22)
+                {
+                    // Tieu diet quai
+                    state.enemies[i].alive = false;
+                    state.bulletActive = false; // Huy dan
+                    
+                    // Kich hoat vu no
+                    state.explosionX = ex + 1; // Canh giua vu no (vu no 24x24, quai 26x22)
+                    state.explosionY = ey - 1;
+                    state.explosionTimer = 8; // Vu no se ton tai trong 8 tick (khoang 0.13 giay)
+                    
+                    // Cong diem so
+                    state.score += 100;
+                    if (state.score > 9999) state.score = 9999;
+                    break;
+                }
+            }
+        }
+
+        if (state.bulletY < 0)
+        {
+            state.bulletActive = false; // Xoa dan khi bay khoi man hinh
+        }
+    }
+
+    // 2. Logic di chuyen quai vat sau moi 15 ticks de giam toc do di chuyen
+    tickCount++;
+    if (tickCount >= 15 && !state.isGameOver)
+    {
+        tickCount = 0;
+        bool changeDir = false;
+
+        // Kiem tra xem co con quai nao cham bien trai/phai chua
+        for (int i = 0; i < MAX_ENEMIES; i++)
+        {
+            if (state.enemies[i].alive)
+            {
+                int nextX = state.enemies[i].x + state.enemyDirection * 4;
+                // Gioi han chieu rong man hinh 240px, quai vat rong khoang 26px
+                if (nextX < 5 || nextX > 240 - 26 - 5)
+                {
+                    changeDir = true;
+                    break;
+                }
+            }
+        }
+
+        if (changeDir)
+        {
+            state.enemyDirection = -state.enemyDirection; // Doi huong
+            for (int i = 0; i < MAX_ENEMIES; i++)
+            {
+                if (state.enemies[i].alive)
+                {
+                    state.enemies[i].y += 8; // Di xuong 8px
+                    // Kiem tra neu quai vat di xuong qua gan tau nguoi choi (Y = 280)
+                    if (state.enemies[i].y >= 260)
+                    {
+                        state.isGameOver = true;
+                        // Chen diem moi vao top 3
+                        int16_t curScore = state.score;
+                        if (curScore > highScores[0])
+                        {
+                            highScores[2] = highScores[1];
+                            highScores[1] = highScores[0];
+                            highScores[0] = curScore;
+                        }
+                        else if (curScore > highScores[1])
+                        {
+                            highScores[2] = highScores[1];
+                            highScores[1] = curScore;
+                        }
+                        else if (curScore > highScores[2])
+                        {
+                            highScores[2] = curScore;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            // Di chuyen ngang binh thuong
+            for (int i = 0; i < MAX_ENEMIES; i++)
+            {
+                if (state.enemies[i].alive)
+                {
+                    state.enemies[i].x += state.enemyDirection * 4;
+                }
+            }
+        }
+    }
+
+    // Kiem tra them truong hop het mang song cung ket thuc game
+    if (state.lives <= 0 && !state.isGameOver)
+    {
+        state.isGameOver = true;
+        // Chen diem moi vao top 3
+        int16_t curScore = state.score;
+        if (curScore > highScores[0])
+        {
+            highScores[2] = highScores[1];
+            highScores[1] = highScores[0];
+            highScores[0] = curScore;
+        }
+        else if (curScore > highScores[1])
+        {
+            highScores[2] = highScores[1];
+            highScores[1] = curScore;
+        }
+        else if (curScore > highScores[2])
+        {
+            highScores[2] = curScore;
+        }
+    }
+
+    if (modelListener != 0)
+    {
+        modelListener->updateGameState(state);
+    }
+}
+
+void Model::resetGame()
+{
+    state.playerX = 105;
+    state.score = 0;
+    state.lives = 3;
+    state.isGameOver = false;
+    state.playBuzzerBeep = false;
+    
+    state.bulletX = 0;
+    state.bulletY = 0;
+    state.bulletActive = false;
+    
+    state.explosionX = 0;
+    state.explosionY = 0;
+    state.explosionTimer = 0;
+    
+    state.enemyDirection = 1;
+    for (int i = 0; i < MAX_ENEMIES; i++)
+    {
+        int row = i / 5;
+        int col = i % 5;
+        state.enemies[i].x = 15 + col * 35;
+        state.enemies[i].y = 40 + row * 25;
+        state.enemies[i].alive = true;
+        state.enemies[i].type = (row % 3);
+    }
+}

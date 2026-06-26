@@ -1,0 +1,33 @@
+# Build directories
+TouchGFX/build/
+TouchGFX/generated/images/src/
+TouchGFX/generated/images/include/
+TouchGFX/generated/texts/
+TouchGFX/generated/fonts/
+TouchGFX/generated/gui_generated/
+
+# IDE/Toolchain files
+.mxproject
+.project
+.cproject
+.settings/
+STM32CubeIDE/
+Debug/
+Release/
+
+# OS/VS Code/MSVC files
+.vscode/
+.vs/
+*.suo
+*.user
+*.ncb
+*.pidb
+*.sdf
+*.opensdf
+*.db
+ipch/
+
+# Backup/Log files
+*.log
+*.bak
+*~

@@ -1,0 +1,786 @@
+{
+  "Application": {
+    "Screens": [
+      {
+        "Name": "Screen1",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "backgroundImage",
+            "Width": 240,
+            "Height": 320,
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "playerShip",
+            "X": 105,
+            "Y": 280,
+            "Width": 30,
+            "Height": 26,
+            "RelativeFilename": "player_ship.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "uiLifeIcon",
+            "X": 10,
+            "Y": 10,
+            "Width": 18,
+            "Height": 16,
+            "RelativeFilename": "ui_life.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "uiXIcon",
+            "X": 32,
+            "Y": 14,
+            "Width": 8,
+            "Height": 8,
+            "RelativeFilename": "ui_x.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "livesDigit",
+            "X": 44,
+            "Y": 11,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_3.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "scoreD5",
+            "X": 188,
+            "Y": 10,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "scoreD4",
+            "X": 196,
+            "Y": 10,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "scoreD3",
+            "X": 204,
+            "Y": 10,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "scoreD2",
+            "X": 212,
+            "Y": 10,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "scoreD1",
+            "X": 220,
+            "Y": 10,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "scoreD0",
+            "X": 228,
+            "Y": 10,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "enemy0",
+            "X": 15,
+            "Y": 40,
+            "Width": 26,
+            "Height": 22,
+            "RelativeFilename": "enemy_red.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "enemy1",
+            "X": 50,
+            "Y": 40,
+            "Width": 26,
+            "Height": 22,
+            "RelativeFilename": "enemy_red.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "enemy2",
+            "X": 85,
+            "Y": 40,
+            "Width": 26,
+            "Height": 22,
+            "RelativeFilename": "enemy_red.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "enemy3",
+            "X": 120,
+            "Y": 40,
+            "Width": 26,
+            "Height": 22,
+            "RelativeFilename": "enemy_red.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "enemy4",
+            "X": 155,
+            "Y": 40,
+            "Width": 26,
+            "Height": 22,
+            "RelativeFilename": "enemy_red.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "enemy5",
+            "X": 14,
+            "Y": 65,
+            "Width": 26,
+            "Height": 22,
+            "RelativeFilename": "enemy_blue.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "enemy6",
+            "X": 50,
+            "Y": 65,
+            "Width": 26,
+            "Height": 22,
+            "RelativeFilename": "enemy_blue.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "enemy7",
+            "X": 85,
+            "Y": 65,
+            "Width": 26,
+            "Height": 22,
+            "RelativeFilename": "enemy_blue.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "enemy8",
+            "X": 120,
+            "Y": 65,
+            "Width": 26,
+            "Height": 22,
+            "RelativeFilename": "enemy_blue.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "enemy9",
+            "X": 155,
+            "Y": 65,
+            "Width": 26,
+            "Height": 22,
+            "RelativeFilename": "enemy_blue.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "playerBullet",
+            "Width": 4,
+            "Height": 16,
+            "RelativeFilename": "laser_player.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "explosionEffect",
+            "X": 96,
+            "Y": 198,
+            "Width": 24,
+            "Height": 24,
+            "RelativeFilename": "explosion.png"
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "MenuScreen",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "menuBg",
+            "Width": 240,
+            "Height": 320,
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "gameLogo",
+            "X": 20,
+            "Y": 60,
+            "Width": 220,
+            "Height": 70,
+            "RelativeFilename": "game_title.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "btnStart",
+            "X": 60,
+            "Y": 150,
+            "Width": 120,
+            "Height": 30,
+            "Pressed": "btn_start.png",
+            "Released": "btn_start.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "btnScoreboard",
+            "X": 60,
+            "Y": 190,
+            "Width": 120,
+            "Height": 30,
+            "Pressed": "btn_scoreboard.png",
+            "Released": "btn_scoreboard.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "btnExit",
+            "X": 60,
+            "Y": 230,
+            "Width": 120,
+            "Height": 30,
+            "Pressed": "btn_exit.png",
+            "Released": "btn_exit.png"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "gotoGame",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "btnStart"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen1"
+            }
+          },
+          {
+            "InteractionName": "gotoScoreboard",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "btnScoreboard"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "ScoreboardScreen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "ScoreboardScreen",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "scoreBg",
+            "Width": 240,
+            "Height": 320,
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "txtScoreboardTitle",
+            "X": 60,
+            "Y": 30,
+            "Width": 120,
+            "Height": 30,
+            "RelativeFilename": "btn_scoreboard.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "lbl1st",
+            "X": 50,
+            "Y": 95,
+            "Width": 40,
+            "Height": 20,
+            "RelativeFilename": "lbl_1st.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r1D5",
+            "X": 100,
+            "Y": 100,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r1D4",
+            "X": 108,
+            "Y": 100,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r1D3",
+            "X": 116,
+            "Y": 100,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r1D2",
+            "X": 124,
+            "Y": 100,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r1D1",
+            "X": 132,
+            "Y": 100,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r1D0",
+            "X": 140,
+            "Y": 100,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "lbl2nd",
+            "X": 50,
+            "Y": 135,
+            "Width": 40,
+            "Height": 20,
+            "RelativeFilename": "lbl_2nd.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r2D5",
+            "X": 100,
+            "Y": 140,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r2D4",
+            "X": 108,
+            "Y": 140,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r2D3",
+            "X": 116,
+            "Y": 140,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r2D2",
+            "X": 124,
+            "Y": 140,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r2D1",
+            "X": 132,
+            "Y": 140,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r2D0",
+            "X": 140,
+            "Y": 140,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "lbl3rd",
+            "X": 50,
+            "Y": 175,
+            "Width": 40,
+            "Height": 20,
+            "RelativeFilename": "lbl_3rd.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r3D5",
+            "X": 100,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r3D4",
+            "X": 108,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r3D3",
+            "X": 116,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r3D2",
+            "X": 124,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r3D1",
+            "X": 132,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "r3D0",
+            "X": 140,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "btnBack",
+            "X": 80,
+            "Y": 260,
+            "Width": 80,
+            "Height": 30,
+            "Pressed": "btn_back.png",
+            "Released": "btn_back.png"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "gotoMenu",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "btnBack"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "MenuScreen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "GameOverScreen",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "goBg",
+            "Width": 240,
+            "Height": 320,
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "alienYellow",
+            "X": 76,
+            "Y": 25,
+            "Width": 88,
+            "Height": 64,
+            "RelativeFilename": "alien_yellow.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "txtGameOver",
+            "Y": 100,
+            "Width": 240,
+            "Height": 40,
+            "RelativeFilename": "txt_gameover.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "txtScoreLbl",
+            "X": 20,
+            "Y": 150,
+            "Width": 100,
+            "Height": 20,
+            "RelativeFilename": "txt_yourscore.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "txtHiScoreLbl",
+            "X": 120,
+            "Y": 150,
+            "Width": 100,
+            "Height": 20,
+            "RelativeFilename": "txt_highscore.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "scoreD5",
+            "X": 30,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "scoreD4",
+            "X": 38,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "scoreD3",
+            "X": 46,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "scoreD2",
+            "X": 54,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "scoreD1",
+            "X": 62,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "scoreD0",
+            "X": 70,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "hiD5",
+            "X": 150,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "hiD4",
+            "X": 158,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "hiD3",
+            "X": 166,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "hiD2",
+            "X": 174,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "hiD1",
+            "X": 182,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "hiD0",
+            "X": 190,
+            "Y": 180,
+            "Width": 8,
+            "Height": 12,
+            "RelativeFilename": "num_0.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "btnReplay",
+            "X": 60,
+            "Y": 230,
+            "Width": 120,
+            "Height": 30,
+            "Pressed": "btn_replay.png",
+            "Released": "btn_replay.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "btnGoMenu",
+            "X": 80,
+            "Y": 270,
+            "Width": 80,
+            "Height": 30,
+            "Pressed": "btn_back.png",
+            "Released": "btn_back.png"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "gotoGame",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "btnReplay"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen1"
+            }
+          },
+          {
+            "InteractionName": "gotoMenu",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "btnGoMenu"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "MenuScreen"
+            }
+          }
+        ]
+      }
+    ],
+    "CustomContainerDefinitions": [],
+    "Name": "STM32F429_SpaceInvaders_TouchGFX",
+    "Resolution": {
+      "Width": 240,
+      "Height": 320
+    },
+    "SelectedColorDepth": 16,
+    "StartupScreenName": "MenuScreen",
+    "SelectedStartupLanguage": "GB",
+    "TouchGfxPath": "../Middlewares/ST/touchgfx",
+    "UIPath": ".",
+    "AvailableColorDepths": [
+      16
+    ],
+    "AvailableLCDs": {
+      "16": "LCD16bpp"
+    },
+    "AvailableSections": [
+      "ExtFlashSection",
+      "IntFlashSection"
+    ],
+    "AvailableResolutions": [
+      {
+        "Width": 240,
+        "Height": 320
+      }
+    ],
+    "PhysicalButtons": [],
+    "FrameworkFeatures": {
+      "LCD16bpp": {
+        "Id": "LCD16bpp",
+        "IsEnabled": true
+      }
+    },
+    "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
+    "PostGenerateCommand": "touchgfx update_project --project-file=simulator/msvs/Application.vcxproj",
+    "PostGenerateTargetCommand": "touchgfx update_project",
+    "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
+    "RunSimulatorCommand": "build\\bin\\simulator.exe",
+    "CompileTargetCommandOverride": "make -f ../gcc/Makefile -j8",
+    "FlashTargetCommandOverride": "make -f ../gcc/Makefile flash",
+    "LandscapeSkinX": 0,
+    "LandscapeSkinY": 0,
+    "PortraitSkinX": 0,
+    "PortraitSkinY": 0,
+    "DisplayOrientation": "Portrait",
+    "Family": "STM32F4",
+    "SubFamily": "STM32F429/439",
+    "Toolchain": "STM32CubeIDE",
+    "Platform": "m4",
+    "ProjectFile": "../STM32F429I_DISCO_REV_D01.ioc",
+    "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
+    "OptionalComponents": [],
+    "AdditionalFeatures": [
+      "CWRVector",
+      "VectorFonts"
+    ]
+  },
+  "Version": "4.26.1",
+  "CreatedBy": "4.26.1"
+}
