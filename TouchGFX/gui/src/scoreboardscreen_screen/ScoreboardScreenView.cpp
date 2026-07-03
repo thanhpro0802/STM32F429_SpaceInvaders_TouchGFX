@@ -19,10 +19,10 @@ touchgfx::BitmapId ScoreboardScreenView::getNumBitmap(uint8_t digit)
     return numBitmaps[digit];
 }
 
-void ScoreboardScreenView::setRankScoreDisplay(uint8_t rank, int16_t score)
+void ScoreboardScreenView::setRankScoreDisplay(uint8_t rank, int32_t score)
 {
     if (score < 0) score = 0;
-    if (score > 9999) score = 9999;
+    if (score > 999999) score = 999999;
 
     uint8_t d[6];
     d[0] = score % 10;

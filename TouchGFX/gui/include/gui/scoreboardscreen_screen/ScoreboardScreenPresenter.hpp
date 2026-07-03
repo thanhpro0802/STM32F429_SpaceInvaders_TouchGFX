@@ -27,7 +27,7 @@ public:
 
     virtual ~ScoreboardScreenPresenter() {}
 
-    int16_t getHighScoreAt(uint8_t index) const { return model->getHighScoreAt(index); }
+    int32_t getHighScoreAt(uint8_t index) const { return model->getHighScoreAt(index); }
 
 private:
     ScoreboardScreenPresenter();

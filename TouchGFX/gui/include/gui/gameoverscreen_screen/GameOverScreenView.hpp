@@ -13,8 +13,8 @@ public:
     virtual void tearDownScreen();
 protected:
 private:
-    void setScoreDisplay(int16_t score);
-    void setHighScoreDisplay(int16_t score);
+    void setScoreDisplay(int32_t score);
+    void setHighScoreDisplay(int32_t score);
     touchgfx::BitmapId getNumBitmap(uint8_t digit);
 };
 

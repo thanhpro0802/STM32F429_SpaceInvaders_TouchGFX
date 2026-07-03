@@ -2,8 +2,22 @@
 #include <touchgfx/Utils.hpp>
 #include <images/BitmapDatabase.hpp>
 
-Screen1View::Screen1View() : lastScore(-1), lastLives(-1)
+Screen1View::Screen1View() : lastScore(-1), lastLives(-1), lastLevel(0)
 {
+    levelTensDigit.setXY(109, 144);
+    levelTensDigit.setBitmap(touchgfx::Bitmap(BITMAP_NUM_0_ID));
+    levelTensDigit.setVisible(false);
+    add(levelTensDigit);
+
+    levelOnesDigit.setXY(121, 144);
+    levelOnesDigit.setBitmap(touchgfx::Bitmap(BITMAP_NUM_1_ID));
+    levelOnesDigit.setVisible(false);
+    add(levelOnesDigit);
+
+    enemyBullet.setXY(0, 0);
+    enemyBullet.setBitmap(touchgfx::Bitmap(BITMAP_LASER_ENEMY_ID));
+    enemyBullet.setVisible(false);
+    add(enemyBullet);
 }
 
 // Tra ve BitmapId tuong ung voi chu so 0-9
@@ -19,11 +33,20 @@ touchgfx::BitmapId Screen1View::getNumBitmap(uint8_t digit)
     return numBitmaps[digit];
 }
 
+touchgfx::BitmapId Screen1View::getEnemyBitmap(uint8_t type)
+{
+    if (type == 0)
+        return BITMAP_ENEMY_RED_ID;
+    if (type == 1)
+        return BITMAP_ENEMY_BLUE_ID;
+    return BITMAP_ENEMY_SPIKEY_ID;
+}
+
 // Cap nhat 6 widget anh so dua tren gia tri Score (0-999999)
-void Screen1View::setScoreDisplay(int16_t score)
+void Screen1View::setScoreDisplay(int32_t score)
 {
     if (score < 0) score = 0;
-    if (score > 9999) score = 9999; // Gioi han hien tai
+    if (score > 999999) score = 999999;
 
     uint8_t d[6];
     d[0] = score % 10;
@@ -83,9 +106,12 @@ void Screen1View::setupScreen()
     for (int i = 0; i < MAX_ENEMIES; i++)
     {
         enemyImages[i]->setXY(state.enemies[i].x, state.enemies[i].y);
+        enemyImages[i]->setBitmap(touchgfx::Bitmap(getEnemyBitmap(state.enemies[i].type)));
         enemyImages[i]->setVisible(state.enemies[i].alive);
         enemyImages[i]->invalidate();
     }
+
+    updateLevelIntro(state);
 }
 
 void Screen1View::tearDownScreen()
@@ -95,35 +121,25 @@ void Screen1View::tearDownScreen()
 
 void Screen1View::handleKeyEvent(uint8_t key)
 {
-    int step = 8;
-    int currentX = playerShip.getX();
-
     if (key == 18 || key == 'a' || key == 'A')
     {
-        currentX -= step;
-        if (currentX < 0) currentX = 0;
+        presenter->setPlayerMoveDirection(-1);
     }
     else if (key == 19 || key == 'd' || key == 'D')
     {
-        currentX += step;
-        int maxX = 240 - playerShip.getWidth();
-        if (currentX > maxX) currentX = maxX;
+        presenter->setPlayerMoveDirection(1);
     }
     else if (key == 32 || key == ' ') // Phím Space để bắn đạn
     {
         presenter->fireBullet();
     }
 
-    // Invalidate vi tri cu -> di chuyen -> Invalidate vi tri moi
-    playerShip.invalidate();
-    playerShip.setX(currentX);
-    playerShip.invalidate();
-
-    presenter->setPlayerX(currentX);
 }
 
 void Screen1View::updateGameState(const GameState& state)
 {
+    updateLevelIntro(state);
+
     // Cap nhat vi tri tau nguoi choi
     if (playerShip.getX() != state.playerX)
     {
@@ -145,6 +161,21 @@ void Screen1View::updateGameState(const GameState& state)
             playerBullet.invalidate();
             playerBullet.setXY(state.bulletX, state.bulletY);
             playerBullet.invalidate();
+        }
+    }
+
+    if (enemyBullet.isVisible() != state.enemyBulletActive)
+    {
+        enemyBullet.setVisible(state.enemyBulletActive);
+        enemyBullet.invalidate();
+    }
+    if (state.enemyBulletActive)
+    {
+        if (enemyBullet.getX() != state.enemyBulletX || enemyBullet.getY() != state.enemyBulletY)
+        {
+            enemyBullet.invalidate();
+            enemyBullet.setXY(state.enemyBulletX, state.enemyBulletY);
+            enemyBullet.invalidate();
         }
     }
 
@@ -232,6 +263,7 @@ void Screen1View::updateGameState(const GameState& state)
         // Cap nhat toa do neu quai vat con song va co su thay doi vi tri
         if (state.enemies[i].alive)
         {
+            enemyImages[i]->setBitmap(touchgfx::Bitmap(getEnemyBitmap(state.enemies[i].type)));
             if (enemyImages[i]->getX() != state.enemies[i].x || enemyImages[i]->getY() != state.enemies[i].y)
             {
                 enemyImages[i]->invalidate();
@@ -253,6 +285,31 @@ void Screen1View::updateGameState(const GameState& state)
     {
         setLivesDisplay(state.lives);
         lastLives = state.lives;
+    }
+}
+
+void Screen1View::updateLevelIntro(const GameState& state)
+{
+    bool showLevelIntro = (state.levelIntroTimer > 0);
+
+    if (state.level != lastLevel)
+    {
+        uint8_t shownLevel = state.level;
+        if (shownLevel > 99) shownLevel = 99;
+
+        levelTensDigit.setBitmap(touchgfx::Bitmap(getNumBitmap(shownLevel / 10)));
+        levelOnesDigit.setBitmap(touchgfx::Bitmap(getNumBitmap(shownLevel % 10)));
+        levelTensDigit.invalidate();
+        levelOnesDigit.invalidate();
+        lastLevel = state.level;
+    }
+
+    if (levelTensDigit.isVisible() != showLevelIntro)
+    {
+        levelTensDigit.setVisible(showLevelIntro);
+        levelOnesDigit.setVisible(showLevelIntro);
+        levelTensDigit.invalidate();
+        levelOnesDigit.invalidate();
     }
 }
 

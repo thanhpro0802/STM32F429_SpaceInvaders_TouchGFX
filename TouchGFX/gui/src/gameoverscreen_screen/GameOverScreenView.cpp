@@ -19,10 +19,10 @@ touchgfx::BitmapId GameOverScreenView::getNumBitmap(uint8_t digit)
     return numBitmaps[digit];
 }
 
-void GameOverScreenView::setScoreDisplay(int16_t score)
+void GameOverScreenView::setScoreDisplay(int32_t score)
 {
     if (score < 0) score = 0;
-    if (score > 9999) score = 9999;
+    if (score > 999999) score = 999999;
 
     uint8_t d[6];
     d[0] = score % 10;
@@ -40,10 +40,10 @@ void GameOverScreenView::setScoreDisplay(int16_t score)
     scoreD5.setBitmap(touchgfx::Bitmap(getNumBitmap(d[5]))); scoreD5.invalidate();
 }
 
-void GameOverScreenView::setHighScoreDisplay(int16_t score)
+void GameOverScreenView::setHighScoreDisplay(int32_t score)
 {
     if (score < 0) score = 0;
-    if (score > 9999) score = 9999;
+    if (score > 999999) score = 999999;
 
     uint8_t d[6];
     d[0] = score % 10;

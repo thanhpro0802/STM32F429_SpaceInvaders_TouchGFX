@@ -27,8 +27,8 @@ public:
 
     virtual ~GameOverScreenPresenter() {}
 
-    int16_t getScore() const { return model->getGameState().score; }
-    int16_t getHighScore() const { return model->getHighScore(); }
+    int32_t getScore() const { return model->getGameState().score; }
+    int32_t getHighScore() const { return model->getHighScore(); }
 
 private:
     GameOverScreenPresenter();

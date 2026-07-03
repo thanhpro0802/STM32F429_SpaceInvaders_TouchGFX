@@ -18,14 +18,20 @@ public:
     void gotoGameOverScreen();
 protected:
 private:
-    void setScoreDisplay(int16_t score);
+    void setScoreDisplay(int32_t score);
     void setLivesDisplay(int8_t lives);
+    void updateLevelIntro(const GameState& state);
     touchgfx::BitmapId getNumBitmap(uint8_t digit);
+    touchgfx::BitmapId getEnemyBitmap(uint8_t type);
 
     touchgfx::Image* enemyImages[MAX_ENEMIES];
+    touchgfx::Image enemyBullet;
+    touchgfx::Image levelTensDigit;
+    touchgfx::Image levelOnesDigit;
 
-    int16_t lastScore;
+    int32_t lastScore;
     int8_t  lastLives;
+    uint8_t lastLevel;
 };
 
 #endif // SCREEN1VIEW_HPP

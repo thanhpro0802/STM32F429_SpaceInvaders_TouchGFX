@@ -18,8 +18,10 @@ struct Enemy
 struct GameState
 {
     int16_t playerX;       // Toa do X cua tau nguoi choi (0 - 210)
-    int16_t score;         // Diem so hien tai
+    int32_t score;         // Diem so hien tai
     int8_t lives;          // So mang con lai (3, 2, 1, 0)
+    uint8_t level;          // Man choi hien tai, tang sau moi wave
+    int8_t levelIntroTimer; // Hien thong bao level moi khi > 0
     bool isGameOver;       // Trang thai ket thuc game
     bool playBuzzerBeep;   // Trigger coi buzzer keu bip (TV3 doc tu day)
     
@@ -30,6 +32,10 @@ struct GameState
     int16_t bulletX;
     int16_t bulletY;
     bool bulletActive;
+
+    int16_t enemyBulletX;
+    int16_t enemyBulletY;
+    bool enemyBulletActive;
 
     // Thong tin vu no
     int16_t explosionX;
@@ -72,19 +78,29 @@ public:
     
     // Cac helper tien ich
     void setPlayerX(int16_t x) { state.playerX = x; }
-    void setScore(int16_t s) { state.score = s; }
+    void setScore(int32_t s) { state.score = s; }
     void setLives(int8_t l) { state.lives = l; }
     void setGameOver(bool gameOver) { state.isGameOver = gameOver; }
+    void setPlayerMoveDirection(int8_t direction);
     void fireBullet();
     void resetGame();
+    void initializeEnemiesForLevel(uint8_t level);
+    bool areAllEnemiesDefeated() const;
+    void startNextLevel();
+    void updateHighScores();
     
-    int16_t getHighScore() const { return highScores[0]; }
-    int16_t getHighScoreAt(uint8_t index) const { return (index < 3) ? highScores[index] : 0; }
+    int32_t getHighScore() const { return highScores[0]; }
+    int32_t getHighScoreAt(uint8_t index) const { return (index < 3) ? highScores[index] : 0; }
 
 protected:
     ModelListener* modelListener;
     GameState state; // Bien luu tru trang thai game
-    int16_t highScores[3]; // Lưu top 3 điểm cao nhất
+    int8_t playerMoveDirection;
+    int8_t playerMoveTimer;
+    int16_t enemyShootCooldown;
+    uint8_t nextEnemyShooterIndex;
+    uint8_t missileAmmo;
+    int32_t highScores[3]; // Luu top 3 diem cao nhat
 };
 
 #endif // MODEL_HPP
