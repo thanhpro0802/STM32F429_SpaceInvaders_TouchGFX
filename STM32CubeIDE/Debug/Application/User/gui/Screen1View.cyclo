@@ -1,0 +1,14 @@
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	1
+C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:91:6:virtual void Screen1View::tearDownScreen()	1
+../../TouchGFX/gui/include/gui/screen1_screen/Screen1View.hpp:13:13:Screen1View::~Screen1View()	1
+../../TouchGFX/gui/include/gui/screen1_screen/Screen1View.hpp:13:13:virtual Screen1View::~Screen1View()	1
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:343:10:void touchgfx::Drawable::setXY(int16_t, int16_t)	1
+C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:5:1:Screen1View::Screen1View()	1
+C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:10:20:touchgfx::BitmapId Screen1View::getNumBitmap(uint8_t)	2
+C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:201:6:void Screen1View::gotoGameOverScreen()	1
+C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:23:6:void Screen1View::setScoreDisplay(int16_t)	1
+C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:45:6:void Screen1View::setLivesDisplay(int8_t)	1
+C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:96:6:virtual void Screen1View::handleKeyEvent(uint8_t)	6
+C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:125:6:void Screen1View::updateGameState(const GameState&)	15
+C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:53:6:virtual void Screen1View::setupScreen()	2
