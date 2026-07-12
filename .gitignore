@@ -9,7 +9,6 @@
 *.pidb
 *.sdf
 *.opensdf
-*.db
 ipch/
 
 # Backup/Log files
