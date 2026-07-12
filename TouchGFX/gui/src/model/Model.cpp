@@ -1,10 +1,11 @@
 #include <gui/model/Model.hpp>
 #include <gui/model/ModelListener.hpp>
 
-Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), enemyShootCooldown(90), nextEnemyShooterIndex(0), missileAmmo(0)
+Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), playerMoveDirectionY(0), playerMoveTimerY(0), enemyShootCooldown(90), nextEnemyShooterIndex(0), missileAmmo(0)
 {
     // Khoi tao gia tri mac dinh cho game
     state.playerX = 105;
+    state.playerY = 280;
     state.score = 0;
     state.lives = 3;
     state.level = 1;
@@ -19,9 +20,10 @@ Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), e
     state.bulletX = 0;
     state.bulletY = 0;
     state.bulletActive = false;
-    state.enemyBulletX = 0;
-    state.enemyBulletY = 0;
-    state.enemyBulletActive = false;
+    for (int i = 0; i < 5; i++)
+    {
+        state.enemyBullets[i].active = false;
+    }
 
     // Khoi tao vu no
     state.explosionX = 0;
@@ -44,6 +46,16 @@ Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), e
     state.largeExplosionY = 0;
     state.largeExplosionTimer = 0;
     
+    // Khoi tao Boss
+    state.bossActive = false;
+    state.bossType = 1;
+    state.bossX = 0;
+    state.bossY = 0;
+    state.bossHp = 0;
+    state.bossMaxHp = 0;
+    state.bossDirection = 1;
+    state.bossTimer = 0;
+    
     state.enemyDirection = 1; // Mac dinh di qua phai
     initializeEnemiesForLevel(state.level);
 }
@@ -54,6 +66,26 @@ void Model::initializeEnemiesForLevel(uint8_t level)
     {
         level = 1;
     }
+
+    if (level == 5 || level == 10)
+    {
+        state.bossActive = true;
+        state.bossType = (level == 5) ? 1 : 2;
+        state.bossX = 88; // 240/2 - 64/2
+        state.bossY = 30;
+        state.bossHp = (level == 5) ? 15 : 20;
+        state.bossMaxHp = state.bossHp;
+        state.bossDirection = 1;
+        state.bossTimer = 0;
+
+        for (int i = 0; i < MAX_ENEMIES; i++)
+        {
+            state.enemies[i].alive = false;
+        }
+        return;
+    }
+
+    state.bossActive = false;
 
     const int16_t startY = 40 + (((level - 1) / 2) > 5 ? 5 : ((level - 1) / 2)) * 3;
     const uint8_t pattern = (level - 1) % 5;
@@ -105,6 +137,7 @@ void Model::initializeEnemiesForLevel(uint8_t level)
 
 bool Model::areAllEnemiesDefeated() const
 {
+    if (state.bossActive) return false;
     for (int i = 0; i < MAX_ENEMIES; i++)
     {
         if (state.enemies[i].alive)
@@ -124,7 +157,10 @@ void Model::startNextLevel()
 
     state.enemyDirection = 1;
     state.bulletActive = false;
-    state.enemyBulletActive = false;
+    for (int i = 0; i < 5; i++)
+    {
+        state.enemyBullets[i].active = false;
+    }
     state.missileActive = false;
     state.itemActive = false;
     state.explosionTimer = 0;
@@ -169,13 +205,13 @@ void Model::fireBullet()
             missileAmmo--;
             state.missileActive = true;
             state.missileX = state.playerX + 9;
-            state.missileY = 260;
+            state.missileY = state.playerY - 20;
         }
         else
         {
             state.bulletActive = true;
-            state.bulletX = state.playerX + 13; // Canh giua tau (tau rong 30px, dan rong 4px -> 30/2 - 4/2 = 13px)
-            state.bulletY = 264; // Dau tau (tau o Y=280, dan cao 16px -> 280 - 16 = 264px)
+            state.bulletX = state.playerX + 13;
+            state.bulletY = state.playerY - 16;
         }
     }
 }
@@ -187,6 +223,15 @@ void Model::setPlayerMoveDirection(int8_t direction)
 
     playerMoveDirection = direction;
     playerMoveTimer = (direction == 0) ? 0 : 2;
+}
+
+void Model::setPlayerMoveDirectionY(int8_t direction)
+{
+    if (direction < -1) direction = -1;
+    if (direction > 1) direction = 1;
+
+    playerMoveDirectionY = direction;
+    playerMoveTimerY = (direction == 0) ? 0 : 2;
 }
 
 static int tickCount = 0;
@@ -223,6 +268,83 @@ void Model::tick()
         }
     }
 
+    if (!state.isGameOver && playerMoveTimerY > 0)
+    {
+        state.playerY += playerMoveDirectionY * 8;
+        if (state.playerY < 150) state.playerY = 150;
+        if (state.playerY > 294) state.playerY = 294;
+        playerMoveTimerY--;
+        if (playerMoveTimerY == 0)
+        {
+            playerMoveDirectionY = 0;
+        }
+    }
+
+    // Boss Logic
+    if (state.bossActive && !state.isGameOver)
+    {
+        state.bossTimer++;
+        if (state.bossTimer % 3 == 0)
+        {
+            state.bossX += state.bossDirection * 2;
+            if (state.bossX <= 10)
+            {
+                state.bossX = 10;
+                state.bossDirection = 1;
+            }
+            else if (state.bossX >= 240 - 64 - 10)
+            {
+                state.bossX = 240 - 64 - 10;
+                state.bossDirection = -1;
+            }
+        }
+        
+        // Boss Shoot
+        if (state.bossTimer % 60 == 0)
+        {
+            if (state.bossType == 1)
+            {
+                // Boss 1 shoots 1 bullet
+                for (int j = 0; j < 5; j++)
+                {
+                    if (!state.enemyBullets[j].active)
+                    {
+                        state.enemyBullets[j].active = true;
+                        state.enemyBullets[j].x = state.bossX + 32;
+                        state.enemyBullets[j].y = state.bossY + 60;
+                        state.enemyBullets[j].type = 0;
+                        break;
+                    }
+                }
+            }
+            else if (state.bossType == 2)
+            {
+                // Boss 2 shoots 2 bullets at a time, alternating between center and arms
+                static bool alternate = false;
+                alternate = !alternate;
+                int spawned = 0;
+                for (int j = 0; j < 5 && spawned < 2; j++)
+                {
+                    if (!state.enemyBullets[j].active)
+                    {
+                        state.enemyBullets[j].active = true;
+                        if (alternate)
+                        {
+                            if (spawned == 0) { state.enemyBullets[j].x = state.bossX + 20; state.enemyBullets[j].y = state.bossY + 60; state.enemyBullets[j].type = 1; }
+                            else if (spawned == 1) { state.enemyBullets[j].x = state.bossX + 44; state.enemyBullets[j].y = state.bossY + 60; state.enemyBullets[j].type = 1; }
+                        }
+                        else
+                        {
+                            if (spawned == 0) { state.enemyBullets[j].x = state.bossX + 4; state.enemyBullets[j].y = state.bossY + 40; state.enemyBullets[j].type = 2; }
+                            else if (spawned == 1) { state.enemyBullets[j].x = state.bossX + 60; state.enemyBullets[j].y = state.bossY + 40; state.enemyBullets[j].type = 2; }
+                        }
+                        spawned++;
+                    }
+                }
+            }
+        }
+    }
+
     // 0. Giam timer vu no neu dang dien ra
     if (state.explosionTimer > 0)
     {
@@ -234,33 +356,39 @@ void Model::tick()
         state.largeExplosionTimer--;
     }
 
-    if (state.enemyBulletActive && !state.isGameOver)
+    bool anyEnemyBulletActive = false;
+    for (int i = 0; i < 5; i++)
     {
-        state.enemyBulletY += enemyBulletSpeed;
+        if (state.enemyBullets[i].active)
+        {
+            anyEnemyBulletActive = true;
+            state.enemyBullets[i].y += enemyBulletSpeed;
 
-        if (state.enemyBulletY > 320)
-        {
-            state.enemyBulletActive = false;
-            enemyShootCooldown = 70 - (levelBoost * 2);
-            if (enemyShootCooldown < 35) enemyShootCooldown = 35;
-        }
-        else
-        {
-            const int px = state.playerX;
-            const int py = 280;
-            if (state.enemyBulletX + 4 >= px && state.enemyBulletX <= px + 30 &&
-                state.enemyBulletY + 14 >= py && state.enemyBulletY <= py + 26)
+            if (state.enemyBullets[i].y > 320)
             {
-                state.enemyBulletActive = false;
-                enemyShootCooldown = 80;
-                if (state.lives > 0)
+                state.enemyBullets[i].active = false;
+                enemyShootCooldown = 70 - (levelBoost * 2);
+                if (enemyShootCooldown < 35) enemyShootCooldown = 35;
+            }
+            else if (!state.isGameOver)
+            {
+                const int px = state.playerX;
+                const int py = state.playerY;
+                if (state.enemyBullets[i].x + 4 >= px && state.enemyBullets[i].x <= px + 30 &&
+                    state.enemyBullets[i].y + 14 >= py && state.enemyBullets[i].y <= py + 26)
                 {
-                    state.lives--;
+                    state.enemyBullets[i].active = false;
+                    enemyShootCooldown = 80;
+                    if (state.lives > 0)
+                    {
+                        state.lives--;
+                    }
                 }
             }
         }
     }
-    else if (!state.isGameOver && enemyShootCooldown <= 0)
+
+    if (!state.isGameOver && enemyShootCooldown <= 0 && !anyEnemyBulletActive && !state.bossActive)
     {
         int shooterIndex = -1;
         for (int offset = 0; offset < MAX_ENEMIES; offset++)
@@ -276,9 +404,17 @@ void Model::tick()
 
         if (shooterIndex >= 0)
         {
-            state.enemyBulletActive = true;
-            state.enemyBulletX = state.enemies[shooterIndex].x + 11;
-            state.enemyBulletY = state.enemies[shooterIndex].y + 20;
+            for (int j = 0; j < 5; j++)
+            {
+                if (!state.enemyBullets[j].active)
+                {
+                    state.enemyBullets[j].active = true;
+                    state.enemyBullets[j].x = state.enemies[shooterIndex].x + 11;
+                    state.enemyBullets[j].y = state.enemies[shooterIndex].y + 20;
+                    state.enemyBullets[j].type = 0;
+                    break;
+                }
+            }
         }
         else
         {
@@ -298,10 +434,9 @@ void Model::tick()
         }
         else
         {
-            // Kiem tra va cham voi tau nguoi choi (X = playerX, Y = 280, W = 30, H = 26)
-            // Kich thuoc vat pham: 16x16 px
+            // Kiem tra va cham voi tau nguoi choi
             int px = state.playerX;
-            int py = 280;
+            int py = state.playerY;
             if (state.itemX + 16 >= px && state.itemX <= px + 30 &&
                 state.itemY + 16 >= py && state.itemY <= py + 26)
             {
@@ -378,6 +513,25 @@ void Model::tick()
                 }
             }
         }
+        
+        if (state.bossActive)
+        {
+            if (state.missileX + 12 >= state.bossX && state.missileX <= state.bossX + 64 &&
+                state.missileY + 20 >= state.bossY && state.missileY <= state.bossY + 64)
+            {
+                state.missileActive = false;
+                state.bossHp -= 15;
+                state.largeExplosionX = state.bossX;
+                state.largeExplosionY = state.bossY;
+                state.largeExplosionTimer = 12;
+                if (state.bossHp <= 0)
+                {
+                    state.bossActive = false;
+                    state.score += 2000;
+                    if (state.score > 999999) state.score = 999999;
+                }
+            }
+        }
 
         if (state.missileY < -20)
         {
@@ -436,6 +590,25 @@ void Model::tick()
                 }
             }
         }
+        
+        if (state.bossActive)
+        {
+            if (state.bulletX + 4 >= state.bossX && state.bulletX <= state.bossX + 64 &&
+                state.bulletY + 16 >= state.bossY && state.bulletY <= state.bossY + 64)
+            {
+                state.bulletActive = false;
+                state.bossHp -= 1;
+                state.explosionX = state.bulletX - 10;
+                state.explosionY = state.bulletY - 10;
+                state.explosionTimer = 8;
+                if (state.bossHp <= 0)
+                {
+                    state.bossActive = false;
+                    state.score += 2000;
+                    if (state.score > 999999) state.score = 999999;
+                }
+            }
+        }
 
         if (state.bulletY < 0)
         {
@@ -473,8 +646,8 @@ void Model::tick()
                 if (state.enemies[i].alive)
                 {
                     state.enemies[i].y += enemyDropStep; // Di xuong 8px
-                    // Kiem tra neu quai vat di xuong qua gan tau nguoi choi (Y = 280)
-                    if (state.enemies[i].y >= 260)
+                    // Kiem tra neu quai vat di xuong qua gan tau nguoi choi
+                    if (state.enemies[i].y >= state.playerY - 20)
                     {
                         state.isGameOver = true;
                         updateHighScores();
@@ -517,6 +690,7 @@ void Model::tick()
 void Model::resetGame()
 {
     state.playerX = 105;
+    state.playerY = 280;
     state.score = 0;
     state.lives = 3;
     state.level = 1;
@@ -527,9 +701,10 @@ void Model::resetGame()
     state.bulletX = 0;
     state.bulletY = 0;
     state.bulletActive = false;
-    state.enemyBulletX = 0;
-    state.enemyBulletY = 0;
-    state.enemyBulletActive = false;
+    for (int i = 0; i < 5; i++)
+    {
+        state.enemyBullets[i].active = false;
+    }
     
     state.explosionX = 0;
     state.explosionY = 0;
@@ -548,9 +723,20 @@ void Model::resetGame()
     state.largeExplosionY = 0;
     state.largeExplosionTimer = 0;
     
+    state.bossActive = false;
+    state.bossType = 1;
+    state.bossX = 0;
+    state.bossY = 0;
+    state.bossHp = 0;
+    state.bossMaxHp = 0;
+    state.bossDirection = 1;
+    state.bossTimer = 0;
+    
     state.enemyDirection = 1;
     playerMoveDirection = 0;
     playerMoveTimer = 0;
+    playerMoveDirectionY = 0;
+    playerMoveTimerY = 0;
     enemyShootCooldown = 90;
     nextEnemyShooterIndex = 0;
     missileAmmo = 0;

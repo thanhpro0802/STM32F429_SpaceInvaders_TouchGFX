@@ -5,6 +5,8 @@
 #include <gui/screen1_screen/Screen1Presenter.hpp>
 #include <gui/model/Model.hpp>
 #include <touchgfx/widgets/Image.hpp>
+#include <touchgfx/widgets/Box.hpp>
+#include <stdint.h>
 
 class Screen1View : public Screen1ViewBase
 {
@@ -25,7 +27,10 @@ private:
     touchgfx::BitmapId getEnemyBitmap(uint8_t type);
 
     touchgfx::Image* enemyImages[MAX_ENEMIES];
-    touchgfx::Image enemyBullet;
+    touchgfx::Image enemyBullets[5];
+    touchgfx::Image bossImage;
+    touchgfx::Box bossHpBarBg;
+    touchgfx::Box bossHpBar;
     touchgfx::Image levelTensDigit;
     touchgfx::Image levelOnesDigit;
 

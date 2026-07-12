@@ -32,7 +32,16 @@ public:
     const GameState& getGameState() const { return model->getGameState(); }
 
     void setPlayerX(int16_t x);
-    void setPlayerMoveDirection(int8_t direction);
+    void setPlayerMoveDirection(int8_t direction)
+    {
+        model->setPlayerMoveDirection(direction);
+    }
+    
+    void setPlayerMoveDirectionY(int8_t direction)
+    {
+        model->setPlayerMoveDirectionY(direction);
+    }
+
     void fireBullet();
     void resetGame();
 
