@@ -23,6 +23,11 @@ Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), p
     state.boltBuffTimer = 0;
     state.bulletLeftActive = false;
     state.bulletRightActive = false;
+    state.doubleShotBuffTimer = 0;
+    state.bullet2Active = false;
+    state.rapidFireTimer = 0;
+    state.rapidFireTimer = 0;
+    autoFireCooldown = 0;
     for (int i = 0; i < 5; i++)
     {
         state.enemyBullets[i].active = false;
@@ -163,6 +168,11 @@ void Model::startNextLevel()
     state.boltBuffTimer = 0;
     state.bulletLeftActive = false;
     state.bulletRightActive = false;
+    state.doubleShotBuffTimer = 0;
+    state.bullet2Active = false;
+    state.rapidFireTimer = 0;
+    state.rapidFireTimer = 0;
+    autoFireCooldown = 0;
     for (int i = 0; i < 5; i++)
     {
         state.enemyBullets[i].active = false;
@@ -218,7 +228,14 @@ void Model::fireBullet()
             state.bulletActive = true;
             state.bulletX = state.playerX + 13;
             state.bulletY = state.playerY - 16;
-            
+
+            if (state.doubleShotBuffTimer > 0 && !state.bullet2Active)
+            {
+                state.bullet2Active = true;
+                state.bullet2X = state.bulletX + 8;
+                state.bullet2Y = state.bulletY;
+            }
+
             if (state.boltBuffTimer > 0)
             {
                 state.bulletLeftActive = true;
@@ -255,7 +272,11 @@ static int tickCount = 0;
 void Model::tick()
 {
     const uint8_t levelBoost = (state.level > 12) ? 12 : state.level;
-    const int16_t bulletSpeed = 6 + (levelBoost / 6);
+    int16_t bulletSpeed = 6 + (levelBoost / 6);
+    if (state.rapidFireTimer > 0)
+    {
+        bulletSpeed = 14;
+    }
     const int16_t itemFallSpeed = 2 + (levelBoost / 8);
     const int16_t enemyStep = 3 + (levelBoost / 5);
     const int16_t enemyDropStep = 6 + (levelBoost / 4);
@@ -271,6 +292,29 @@ void Model::tick()
     if (state.boltBuffTimer > 0)
     {
         state.boltBuffTimer--;
+    }
+
+    if (state.doubleShotBuffTimer > 0)
+    {
+        state.doubleShotBuffTimer--;
+    }
+
+    if (state.rapidFireTimer > 0)
+    {
+        state.rapidFireTimer--;
+    }
+
+    if (state.rapidFireTimer > 0 && !state.isGameOver)
+    {
+        if (autoFireCooldown > 0)
+        {
+            autoFireCooldown--;
+        }
+        if (autoFireCooldown == 0 && !state.bulletActive && !state.missileActive)
+        {
+            fireBullet();
+            autoFireCooldown = 6;
+        }
     }
 
     if (!state.isGameOver && enemyShootCooldown > 0)
@@ -480,13 +524,21 @@ void Model::tick()
                     state.score += 500;
                     if (state.score > 999999) state.score = 999999;
                 }
-                else if (state.itemType == 2) // Bolt
+                else if (state.itemType == 2) // Bolt (Rapid Fire)
                 {
-                    state.boltBuffTimer = 300;
+                    state.rapidFireTimer = 180; // 3 seconds
+                }
+                else if (state.itemType == 5) // TripleShot
+                {
+                    state.boltBuffTimer = 300; // 5 seconds
                 }
                 else if (state.itemType == 3) // Missile
                 {
                     missileAmmo = 1;
+                }
+                else if (state.itemType == 4) // DoubleShot
+                {
+                    state.doubleShotBuffTimer = 300;
                 }
             }
         }
@@ -556,6 +608,61 @@ void Model::tick()
         if (state.missileY < -20)
         {
             state.missileActive = false;
+        }
+    }
+
+    // Logic dan DoubleShot (dan thu 2 bay thang)
+    if (state.bullet2Active && !state.isGameOver)
+    {
+        state.bullet2Y -= bulletSpeed;
+
+        for (int i = 0; i < MAX_ENEMIES; i++)
+        {
+            if (state.enemies[i].alive)
+            {
+                int ex = state.enemies[i].x;
+                int ey = state.enemies[i].y;
+                if (state.bullet2X + 4 >= ex && state.bullet2X <= ex + 26 &&
+                    state.bullet2Y + 16 >= ey && state.bullet2Y <= ey + 22)
+                {
+                    state.bullet2Active = false;
+                    state.enemies[i].hp--;
+                    if (state.enemies[i].hp <= 0)
+                    {
+                        state.enemies[i].alive = false;
+                        state.explosionX = ex + 1;
+                        state.explosionY = ey - 1;
+                        state.explosionTimer = 8;
+                        state.score += 80 + (state.enemies[i].type * 40) + (state.level * 10);
+                        if (state.score > 999999) state.score = 999999;
+                    }
+                    break;
+                }
+            }
+        }
+
+        if (state.bossActive)
+        {
+            if (state.bullet2X + 4 >= state.bossX && state.bullet2X <= state.bossX + 64 &&
+                state.bullet2Y + 16 >= state.bossY && state.bullet2Y <= state.bossY + 64)
+            {
+                state.bullet2Active = false;
+                state.bossHp -= 1;
+                state.explosionX = state.bullet2X - 10;
+                state.explosionY = state.bullet2Y - 10;
+                state.explosionTimer = 8;
+                if (state.bossHp <= 0)
+                {
+                    state.bossActive = false;
+                    state.score += 2000;
+                    if (state.score > 999999) state.score = 999999;
+                }
+            }
+        }
+
+        if (state.bullet2Y < -16)
+        {
+            state.bullet2Active = false;
         }
     }
 
@@ -712,7 +819,7 @@ void Model::tick()
                             state.itemActive = true;
                             state.itemX = ex + 5; // Căn giữa vật phẩm rơi (quái 26px, vật phẩm 16px)
                             state.itemY = ey;
-                            state.itemType = (state.score / 100 + state.level + i) % 4; // Luan phien cac loai vat pham
+                            state.itemType = (state.score / 100 + state.level + i) % 6; // Luan phien cac loai vat pham
                         }
                     }
                     
@@ -844,6 +951,11 @@ void Model::resetGame()
     state.boltBuffTimer = 0;
     state.bulletLeftActive = false;
     state.bulletRightActive = false;
+    state.doubleShotBuffTimer = 0;
+    state.bullet2Active = false;
+    state.rapidFireTimer = 0;
+    state.rapidFireTimer = 0;
+    autoFireCooldown = 0;
     for (int i = 0; i < 5; i++)
     {
         state.enemyBullets[i].active = false;

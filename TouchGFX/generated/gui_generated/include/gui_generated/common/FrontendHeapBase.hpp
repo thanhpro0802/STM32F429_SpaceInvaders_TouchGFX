@@ -20,6 +20,8 @@
 #include <gui/scoreboardscreen_screen/ScoreboardScreenPresenter.hpp>
 #include <gui/gameoverscreen_screen/GameOverScreenView.hpp>
 #include <gui/gameoverscreen_screen/GameOverScreenPresenter.hpp>
+#include <gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.hpp>
+#include <gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.hpp>
 
 
 /**
@@ -46,7 +48,8 @@ public:
             touchgfx::meta::TypeList< MenuScreenView,
             touchgfx::meta::TypeList< ScoreboardScreenView,
             touchgfx::meta::TypeList< GameOverScreenView,
-            touchgfx::meta::Nil > > >
+            touchgfx::meta::TypeList< DoNotDisplayIconScreenView,
+            touchgfx::meta::Nil > > > >
             > GeneratedViewTypes;
 
     /**
@@ -62,7 +65,8 @@ public:
             touchgfx::meta::TypeList< MenuScreenPresenter,
             touchgfx::meta::TypeList< ScoreboardScreenPresenter,
             touchgfx::meta::TypeList< GameOverScreenPresenter,
-            touchgfx::meta::Nil > > >
+            touchgfx::meta::TypeList< DoNotDisplayIconScreenPresenter,
+            touchgfx::meta::Nil > > > >
             > GeneratedPresenterTypes;
 
     /**

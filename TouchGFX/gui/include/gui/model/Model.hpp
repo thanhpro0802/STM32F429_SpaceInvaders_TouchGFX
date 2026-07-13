@@ -50,6 +50,13 @@ struct GameState
     int16_t bulletRightY;
     bool bulletRightActive;
 
+    int16_t doubleShotBuffTimer;
+    int16_t bullet2X;
+    int16_t bullet2Y;
+    bool bullet2Active;
+
+    int16_t rapidFireTimer;
+
     EnemyBullet enemyBullets[5];
 
     // Thong tin vu no
@@ -61,7 +68,7 @@ struct GameState
     int16_t itemX;
     int16_t itemY;
     bool itemActive;
-    uint8_t itemType;      // 0: Shield, 1: Star, 2: Bolt, 3: Missile
+    uint8_t itemType;      // 0: Shield, 1: Star, 2: Bolt, 3: Missile, 4: DoubleShot, 5: TripleShot
 
     // Thong tin ten lua cua nguoi choi
     int16_t missileX;
@@ -129,6 +136,7 @@ protected:
     uint8_t nextEnemyShooterIndex;
     uint8_t missileAmmo;
     int32_t highScores[3]; // Luu top 3 diem cao nhat
+    int16_t autoFireCooldown;
 };
 
 #endif // MODEL_HPP

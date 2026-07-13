@@ -17,6 +17,8 @@
 #include <gui/scoreboardscreen_screen/ScoreboardScreenPresenter.hpp>
 #include <gui/gameoverscreen_screen/GameOverScreenView.hpp>
 #include <gui/gameoverscreen_screen/GameOverScreenPresenter.hpp>
+#include <gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.hpp>
+#include <gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.hpp>
 
 using namespace touchgfx;
 

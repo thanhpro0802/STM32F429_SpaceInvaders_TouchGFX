@@ -325,6 +325,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/common/FrontendApplication.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/gui/DoNotDisplayIconScreenPresenter.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/gui/DoNotDisplayIconScreenView.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/gui/GameOverScreenPresenter.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/gameoverscreen_screen/GameOverScreenPresenter.cpp</locationURI>
@@ -475,6 +485,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/DoNotDisplayIconScreenViewBase.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/donotdisplayiconscreen_screen/DoNotDisplayIconScreenViewBase.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/GameOverScreenViewBase.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/gameoverscreen_screen/GameOverScreenViewBase.cpp</locationURI>
@@ -565,6 +580,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_bullet_missile.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_doubleshot.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_doubleshot.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_enemy1.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy1.cpp</locationURI>
@@ -628,6 +648,11 @@
 			<name>Application/User/generated/image_item_bolt.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_item_bolt.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_item_doubleshot.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_item_doubleshot.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_item_missile.cpp</name>
@@ -733,6 +758,11 @@
 			<name>Application/User/generated/image_player_ship.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_player_ship.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_tripleshot.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_tripleshot.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_txt_gameover.cpp</name>
