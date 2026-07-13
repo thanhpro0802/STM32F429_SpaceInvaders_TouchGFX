@@ -29,7 +29,14 @@ Screen1View::Screen1View() : lastScore(-1), lastLives(-1), lastLevel(0)
     for (int i = 0; i < 20; i++)
     {
         enemyBullets[i].setXY(0, 0);
-        enemyBullets[i].setBitmap(touchgfx::Bitmap(BITMAP_LASER_ENEMY_ID));
+        touchgfx::Bitmap bmp(BITMAP_LASER_ENEMY_ID);
+        enemyBullets[i].setBitmap(bmp);
+        enemyBullets[i].setWidth(bmp.getWidth());
+        enemyBullets[i].setHeight(bmp.getHeight());
+        enemyBullets[i].setBitmapPosition(0.0f, 0.0f);
+        enemyBullets[i].setOrigo(bmp.getWidth() / 2.0f, bmp.getHeight() / 2.0f);
+        enemyBullets[i].setCameraDistance(1000.0f);
+        enemyBullets[i].updateAngles(0.0f, 0.0f, 0.0f);
         enemyBullets[i].setVisible(false);
         add(enemyBullets[i]);
     }
@@ -265,11 +272,6 @@ void Screen1View::updateGameState(const GameState& state)
     for (int i = 0; i < 20; i++)
     {
         bool showBullet = state.enemyBullets[i].active;
-        if (state.bossLaserPhase == 1 && i >= 5 && i < 15)
-        {
-            // Aiming flicker effect
-            showBullet = showBullet && (state.bossLaserTimer % 6 < 3);
-        }
 
         if (enemyBullets[i].isVisible() != showBullet)
         {
@@ -278,16 +280,24 @@ void Screen1View::updateGameState(const GameState& state)
         }
         if (state.enemyBullets[i].active)
         {
-            touchgfx::BitmapId bmp = BITMAP_LASER_ENEMY_ID;
-            if (state.enemyBullets[i].type == 1) bmp = BITMAP_BOSS_2_LAZER_ID;
-            else if (state.enemyBullets[i].type == 2) bmp = BITMAP_BOSS_3_LAZER_ID;
+            touchgfx::BitmapId bmpId = BITMAP_LASER_ENEMY_ID;
+            if (state.enemyBullets[i].type == 1) bmpId = BITMAP_BOSS_2_LAZER_ID;
+            else if (state.enemyBullets[i].type == 2) bmpId = BITMAP_BOSS_3_LAZER_ID;
             
-            enemyBullets[i].setBitmap(touchgfx::Bitmap(bmp));
+            touchgfx::Bitmap bmp(bmpId);
+            enemyBullets[i].setBitmap(bmp);
+            enemyBullets[i].setWidth(bmp.getWidth());
+            enemyBullets[i].setHeight(bmp.getHeight());
+            enemyBullets[i].setBitmapPosition(0.0f, 0.0f);
+            enemyBullets[i].setOrigo(bmp.getWidth() / 2.0f, bmp.getHeight() / 2.0f);
             
-            if (enemyBullets[i].getX() != state.enemyBullets[i].x || enemyBullets[i].getY() != state.enemyBullets[i].y)
+            // Set rotation angle (negated to match TouchGFX coordinate system rotation direction)
+            enemyBullets[i].updateAngles(0.0f, 0.0f, -state.enemyBullets[i].angle);
+            
+            if (enemyBullets[i].getX() != (int16_t)state.enemyBullets[i].x || enemyBullets[i].getY() != (int16_t)state.enemyBullets[i].y)
             {
                 enemyBullets[i].invalidate();
-                enemyBullets[i].setXY(state.enemyBullets[i].x, state.enemyBullets[i].y);
+                enemyBullets[i].setXY((int16_t)state.enemyBullets[i].x, (int16_t)state.enemyBullets[i].y);
                 enemyBullets[i].invalidate();
             }
         }

@@ -6,6 +6,7 @@
 #include <gui/model/Model.hpp>
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/Box.hpp>
+#include <touchgfx/widgets/TextureMapper.hpp>
 #include <stdint.h>
 
 class Screen1View : public Screen1ViewBase
@@ -27,7 +28,7 @@ private:
     touchgfx::BitmapId getEnemyBitmap(uint8_t type);
 
     touchgfx::Image* enemyImages[MAX_ENEMIES];
-    touchgfx::Image enemyBullets[20];
+    touchgfx::TextureMapper enemyBullets[20];
     touchgfx::Image playerBulletLeft;
     touchgfx::Image playerBulletRight;
     touchgfx::Image playerBullet2;

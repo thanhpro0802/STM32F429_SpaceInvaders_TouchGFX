@@ -16,13 +16,13 @@ struct Enemy
 
 struct EnemyBullet
 {
-    int16_t x;
-    int16_t y;
+    float x;
+    float y;
     bool active;
     uint8_t type; // 0: normal, 1: boss2_mid, 2: boss2_side
+    float angle;
 };
 
-// Struct dung chung de trao doi du lieu giua Logic, Ngoai vi va GUI
 struct GameState
 {
     int16_t playerX;       // Toa do X cua tau nguoi choi (0 - 210)

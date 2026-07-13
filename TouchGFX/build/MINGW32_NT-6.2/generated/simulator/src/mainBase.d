@@ -79,6 +79,7 @@ build/MINGW32_NT-6.2/generated/simulator/src/mainBase.o: \
  gui/include/gui/model/ModelListener.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextureMapper.hpp \
  gui/include/gui/menuscreen_screen/MenuScreenView.hpp \
  generated/gui_generated/include/gui_generated/menuscreen_screen/MenuScreenViewBase.hpp \
  gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp \
@@ -198,6 +199,7 @@ gui/include/gui/screen1_screen/Screen1Presenter.hpp:
 gui/include/gui/model/ModelListener.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextureMapper.hpp:
 gui/include/gui/menuscreen_screen/MenuScreenView.hpp:
 generated/gui_generated/include/gui_generated/menuscreen_screen/MenuScreenViewBase.hpp:
 gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp:

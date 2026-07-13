@@ -1,5 +1,6 @@
 #include <gui/model/Model.hpp>
 #include <gui/model/ModelListener.hpp>
+#include <cmath>
 
 Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), playerMoveDirectionY(0), playerMoveTimerY(0), enemyShootCooldown(90), nextEnemyShooterIndex(0), missileAmmo(0)
 {
@@ -31,6 +32,7 @@ Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), p
     for (int i = 0; i < 20; i++)
     {
         state.enemyBullets[i].active = false;
+        state.enemyBullets[i].angle = 0.0f;
     }
     state.bossLaserPhase = 0;
     state.bossLaserTimer = 0;
@@ -179,6 +181,7 @@ void Model::startNextLevel()
     for (int i = 0; i < 20; i++)
     {
         state.enemyBullets[i].active = false;
+        state.enemyBullets[i].angle = 0.0f;
     }
     state.bossLaserPhase = 0;
     state.bossLaserTimer = 0;
@@ -434,9 +437,18 @@ void Model::tick()
                 {
                     int j = 5 + i;
                     state.enemyBullets[j].active = true;
-                    state.enemyBullets[j].x = state.playerX - 45 + (i * 10);
-                    state.enemyBullets[j].y = state.bossY + 60;
-                    state.enemyBullets[j].type = 0; // Normal laser look
+                    
+                    float startX = state.bossX + 4.0f + i * 6.0f;
+                    float startY = state.bossY + 60.0f;
+                    state.enemyBullets[j].x = startX;
+                    state.enemyBullets[j].y = startY;
+                    state.enemyBullets[j].type = 0;
+                    
+                    float targetX = state.playerX + 15.0f;
+                    float targetY = state.playerY + 13.0f;
+                    float dx = targetX - startX;
+                    float dy = targetY - startY;
+                    state.enemyBullets[j].angle = std::atan2(dx, dy);
                 }
             }
             else
@@ -479,7 +491,15 @@ void Model::tick()
                     speed = enemyBulletSpeed + 2;
                 }
 
-                state.enemyBullets[i].y += speed;
+                if (state.bossLaserPhase == 2 && i >= 5 && i < 15)
+                {
+                    state.enemyBullets[i].x += speed * std::sin(state.enemyBullets[i].angle);
+                    state.enemyBullets[i].y += speed * std::cos(state.enemyBullets[i].angle);
+                }
+                else
+                {
+                    state.enemyBullets[i].y += speed;
+                }
 
                 if (state.enemyBullets[i].y > 320)
                 {
@@ -1029,6 +1049,7 @@ void Model::resetGame()
     for (int i = 0; i < 20; i++)
     {
         state.enemyBullets[i].active = false;
+        state.enemyBullets[i].angle = 0.0f;
     }
     state.bossLaserPhase = 0;
     state.bossLaserTimer = 0;
