@@ -42,6 +42,14 @@ struct GameState
     int16_t bulletY;
     bool bulletActive;
 
+    int16_t boltBuffTimer;
+    int16_t bulletLeftX;
+    int16_t bulletLeftY;
+    bool bulletLeftActive;
+    int16_t bulletRightX;
+    int16_t bulletRightY;
+    bool bulletRightActive;
+
     EnemyBullet enemyBullets[5];
 
     // Thong tin vu no

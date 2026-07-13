@@ -20,6 +20,9 @@ Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), p
     state.bulletX = 0;
     state.bulletY = 0;
     state.bulletActive = false;
+    state.boltBuffTimer = 0;
+    state.bulletLeftActive = false;
+    state.bulletRightActive = false;
     for (int i = 0; i < 5; i++)
     {
         state.enemyBullets[i].active = false;
@@ -157,6 +160,9 @@ void Model::startNextLevel()
 
     state.enemyDirection = 1;
     state.bulletActive = false;
+    state.boltBuffTimer = 0;
+    state.bulletLeftActive = false;
+    state.bulletRightActive = false;
     for (int i = 0; i < 5; i++)
     {
         state.enemyBullets[i].active = false;
@@ -212,6 +218,17 @@ void Model::fireBullet()
             state.bulletActive = true;
             state.bulletX = state.playerX + 13;
             state.bulletY = state.playerY - 16;
+            
+            if (state.boltBuffTimer > 0)
+            {
+                state.bulletLeftActive = true;
+                state.bulletLeftX = state.bulletX - 5;
+                state.bulletLeftY = state.bulletY;
+
+                state.bulletRightActive = true;
+                state.bulletRightX = state.bulletX + 5;
+                state.bulletRightY = state.bulletY;
+            }
         }
     }
 }
@@ -249,6 +266,11 @@ void Model::tick()
     if (state.levelIntroTimer > 0)
     {
         state.levelIntroTimer--;
+    }
+
+    if (state.boltBuffTimer > 0)
+    {
+        state.boltBuffTimer--;
     }
 
     if (!state.isGameOver && enemyShootCooldown > 0)
@@ -460,9 +482,7 @@ void Model::tick()
                 }
                 else if (state.itemType == 2) // Bolt
                 {
-                    // Cong them 1000 diem thuong
-                    state.score += 1000;
-                    if (state.score > 999999) state.score = 999999;
+                    state.boltBuffTimer = 300;
                 }
                 else if (state.itemType == 3) // Missile
                 {
@@ -539,6 +559,117 @@ void Model::tick()
         }
     }
 
+    // Logic cho dan cheo trai/phai
+    if (state.bulletLeftActive && !state.isGameOver)
+    {
+        state.bulletLeftY -= bulletSpeed;
+        state.bulletLeftX -= 2;
+        
+        for (int i = 0; i < MAX_ENEMIES; i++)
+        {
+            if (state.enemies[i].alive)
+            {
+                int ex = state.enemies[i].x;
+                int ey = state.enemies[i].y;
+                if (state.bulletLeftX + 4 >= ex && state.bulletLeftX <= ex + 26 &&
+                    state.bulletLeftY + 16 >= ey && state.bulletLeftY <= ey + 22)
+                {
+                    state.bulletLeftActive = false;
+                    state.enemies[i].hp--;
+                    if (state.enemies[i].hp <= 0)
+                    {
+                        state.enemies[i].alive = false;
+                        state.explosionX = ex + 1;
+                        state.explosionY = ey - 1;
+                        state.explosionTimer = 8;
+                        state.score += 80 + (state.enemies[i].type * 40) + (state.level * 10);
+                        if (state.score > 999999) state.score = 999999;
+                    }
+                    break;
+                }
+            }
+        }
+        
+        if (state.bossActive)
+        {
+            if (state.bulletLeftX + 4 >= state.bossX && state.bulletLeftX <= state.bossX + 64 &&
+                state.bulletLeftY + 16 >= state.bossY && state.bulletLeftY <= state.bossY + 64)
+            {
+                state.bulletLeftActive = false;
+                state.bossHp -= 1;
+                state.explosionX = state.bulletLeftX - 10;
+                state.explosionY = state.bulletLeftY - 10;
+                state.explosionTimer = 8;
+                if (state.bossHp <= 0)
+                {
+                    state.bossActive = false;
+                    state.score += 2000;
+                    if (state.score > 999999) state.score = 999999;
+                }
+            }
+        }
+
+        if (state.bulletLeftY < -16 || state.bulletLeftX < -16)
+        {
+            state.bulletLeftActive = false;
+        }
+    }
+
+    if (state.bulletRightActive && !state.isGameOver)
+    {
+        state.bulletRightY -= bulletSpeed;
+        state.bulletRightX += 2;
+        
+        for (int i = 0; i < MAX_ENEMIES; i++)
+        {
+            if (state.enemies[i].alive)
+            {
+                int ex = state.enemies[i].x;
+                int ey = state.enemies[i].y;
+                if (state.bulletRightX + 4 >= ex && state.bulletRightX <= ex + 26 &&
+                    state.bulletRightY + 16 >= ey && state.bulletRightY <= ey + 22)
+                {
+                    state.bulletRightActive = false;
+                    state.enemies[i].hp--;
+                    if (state.enemies[i].hp <= 0)
+                    {
+                        state.enemies[i].alive = false;
+                        state.explosionX = ex + 1;
+                        state.explosionY = ey - 1;
+                        state.explosionTimer = 8;
+                        state.score += 80 + (state.enemies[i].type * 40) + (state.level * 10);
+                        if (state.score > 999999) state.score = 999999;
+                    }
+                    break;
+                }
+            }
+        }
+        
+        if (state.bossActive)
+        {
+            if (state.bulletRightX + 4 >= state.bossX && state.bulletRightX <= state.bossX + 64 &&
+                state.bulletRightY + 16 >= state.bossY && state.bulletRightY <= state.bossY + 64)
+            {
+                state.bulletRightActive = false;
+                state.bossHp -= 1;
+                state.explosionX = state.bulletRightX - 10;
+                state.explosionY = state.bulletRightY - 10;
+                state.explosionTimer = 8;
+                if (state.bossHp <= 0)
+                {
+                    state.bossActive = false;
+                    state.score += 2000;
+                    if (state.score > 999999) state.score = 999999;
+                }
+            }
+        }
+
+        if (state.bulletRightY < -16 || state.bulletRightX > 240)
+        {
+            state.bulletRightActive = false;
+        }
+    }
+
     // 1. Logic cap nhat dan bay va check va cham
     if (state.bulletActive && !state.isGameOver)
     {
@@ -558,7 +689,10 @@ void Model::tick()
                     state.bulletY + 16 >= ey && state.bulletY <= ey + 22)
                 {
                     // Tieu diet quai
-                    state.bulletActive = false; // Huy dan
+                    state.bulletActive = false;
+    state.boltBuffTimer = 0;
+    state.bulletLeftActive = false;
+    state.bulletRightActive = false; // Huy dan
                     state.enemies[i].hp--;
                     if (state.enemies[i].hp <= 0)
                     {
@@ -597,6 +731,9 @@ void Model::tick()
                 state.bulletY + 16 >= state.bossY && state.bulletY <= state.bossY + 64)
             {
                 state.bulletActive = false;
+    state.boltBuffTimer = 0;
+    state.bulletLeftActive = false;
+    state.bulletRightActive = false;
                 state.bossHp -= 1;
                 state.explosionX = state.bulletX - 10;
                 state.explosionY = state.bulletY - 10;
@@ -612,7 +749,10 @@ void Model::tick()
 
         if (state.bulletY < 0)
         {
-            state.bulletActive = false; // Xoa dan khi bay khoi man hinh
+            state.bulletActive = false;
+    state.boltBuffTimer = 0;
+    state.bulletLeftActive = false;
+    state.bulletRightActive = false; // Xoa dan khi bay khoi man hinh
         }
     }
 
@@ -701,6 +841,9 @@ void Model::resetGame()
     state.bulletX = 0;
     state.bulletY = 0;
     state.bulletActive = false;
+    state.boltBuffTimer = 0;
+    state.bulletLeftActive = false;
+    state.bulletRightActive = false;
     for (int i = 0; i < 5; i++)
     {
         state.enemyBullets[i].active = false;

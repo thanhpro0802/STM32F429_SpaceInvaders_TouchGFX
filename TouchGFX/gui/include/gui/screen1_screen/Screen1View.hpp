@@ -28,6 +28,8 @@ private:
 
     touchgfx::Image* enemyImages[MAX_ENEMIES];
     touchgfx::Image enemyBullets[5];
+    touchgfx::Image playerBulletLeft;
+    touchgfx::Image playerBulletRight;
     touchgfx::Image bossImage;
     touchgfx::Box bossHpBarBg;
     touchgfx::Box bossHpBar;

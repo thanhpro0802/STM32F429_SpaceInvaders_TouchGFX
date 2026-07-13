@@ -141,6 +141,14 @@ void Screen1View::setupScreen()
         enemyImages[i]->invalidate();
     }
 
+    playerBulletLeft.setBitmap(touchgfx::Bitmap(BITMAP_LASER_PLAYER_ID));
+    playerBulletLeft.setVisible(false);
+    add(playerBulletLeft);
+    
+    playerBulletRight.setBitmap(touchgfx::Bitmap(BITMAP_LASER_PLAYER_ID));
+    playerBulletRight.setVisible(false);
+    add(playerBulletRight);
+
     updateLevelIntro(state);
 }
 
@@ -199,6 +207,38 @@ void Screen1View::updateGameState(const GameState& state)
             playerBullet.invalidate();
             playerBullet.setXY(state.bulletX, state.bulletY);
             playerBullet.invalidate();
+        }
+    }
+
+    // Cap nhat dan chéo trái
+    if (playerBulletLeft.isVisible() != state.bulletLeftActive)
+    {
+        playerBulletLeft.setVisible(state.bulletLeftActive);
+        playerBulletLeft.invalidate();
+    }
+    if (state.bulletLeftActive)
+    {
+        if (playerBulletLeft.getX() != state.bulletLeftX || playerBulletLeft.getY() != state.bulletLeftY)
+        {
+            playerBulletLeft.invalidate();
+            playerBulletLeft.setXY(state.bulletLeftX, state.bulletLeftY);
+            playerBulletLeft.invalidate();
+        }
+    }
+
+    // Cap nhat dan chéo phải
+    if (playerBulletRight.isVisible() != state.bulletRightActive)
+    {
+        playerBulletRight.setVisible(state.bulletRightActive);
+        playerBulletRight.invalidate();
+    }
+    if (state.bulletRightActive)
+    {
+        if (playerBulletRight.getX() != state.bulletRightX || playerBulletRight.getY() != state.bulletRightY)
+        {
+            playerBulletRight.invalidate();
+            playerBulletRight.setXY(state.bulletRightX, state.bulletRightY);
+            playerBulletRight.invalidate();
         }
     }
 

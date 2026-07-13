@@ -19,7 +19,7 @@ Screen1ViewBase::Screen1ViewBase()
     playerShip.setBitmap(touchgfx::Bitmap(BITMAP_PLAYER_SHIP_ID));
     add(playerShip);
 
-    uiLifeIcon.setXY(10, 10);
+    uiLifeIcon.setXY(133, 144);
     uiLifeIcon.setBitmap(touchgfx::Bitmap(BITMAP_UI_LIFE_ID));
     add(uiLifeIcon);
 
@@ -95,23 +95,23 @@ Screen1ViewBase::Screen1ViewBase()
     enemy9.setBitmap(touchgfx::Bitmap(BITMAP_ENEMY_BLUE_ID));
     add(enemy9);
 
-    playerBullet.setXY(0, 0);
+    playerBullet.setXY(28, 144);
     playerBullet.setBitmap(touchgfx::Bitmap(BITMAP_LASER_PLAYER_ID));
     add(playerBullet);
 
-    explosionEffect.setXY(96, 198);
+    explosionEffect.setXY(96, 204);
     explosionEffect.setBitmap(touchgfx::Bitmap(BITMAP_EXPLOSION_ID));
     add(explosionEffect);
 
-    itemDrop.setXY(0, 0);
+    itemDrop.setXY(52, 148);
     itemDrop.setBitmap(touchgfx::Bitmap(BITMAP_ITEM_SHIELD_ID));
     add(itemDrop);
 
-    playerMissile.setXY(0, 0);
+    playerMissile.setXY(90, 136);
     playerMissile.setBitmap(touchgfx::Bitmap(BITMAP_BULLET_MISSILE_ID));
     add(playerMissile);
 
-    explosionLarge.setXY(0, 0);
+    explosionLarge.setXY(168, 112);
     explosionLarge.setBitmap(touchgfx::Bitmap(BITMAP_EXPLOSION_LARGE_ID));
     add(explosionLarge);
 }
