@@ -23,8 +23,8 @@
           {
             "Type": "Image",
             "Name": "uiLifeIcon",
-            "X": 10,
-            "Y": 10,
+            "X": 133,
+            "Y": 144,
             "Width": 18,
             "Height": 16,
             "RelativeFilename": "ui_life.png"
@@ -194,6 +194,8 @@
           {
             "Type": "Image",
             "Name": "playerBullet",
+            "X": 28,
+            "Y": 144,
             "Width": 4,
             "Height": 16,
             "RelativeFilename": "laser_player.png"
@@ -202,7 +204,7 @@
             "Type": "Image",
             "Name": "explosionEffect",
             "X": 96,
-            "Y": 198,
+            "Y": 204,
             "Width": 24,
             "Height": 24,
             "RelativeFilename": "explosion.png"
@@ -210,6 +212,8 @@
           {
             "Type": "Image",
             "Name": "itemDrop",
+            "X": 52,
+            "Y": 148,
             "Width": 16,
             "Height": 16,
             "RelativeFilename": "item_shield.png"
@@ -217,6 +221,8 @@
           {
             "Type": "Image",
             "Name": "playerMissile",
+            "X": 90,
+            "Y": 136,
             "Width": 12,
             "Height": 24,
             "RelativeFilename": "bullet_missile.png"
@@ -224,6 +230,8 @@
           {
             "Type": "Image",
             "Name": "explosionLarge",
+            "X": 168,
+            "Y": 112,
             "Width": 48,
             "Height": 48,
             "RelativeFilename": "explosion_large.png"

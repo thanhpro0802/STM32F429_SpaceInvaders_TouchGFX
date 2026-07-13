@@ -1,0 +1,4 @@
+C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:4:1:Model::Model()	20	static
+C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:40:6:void Model::fireBullet()	0	static
+C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:52:6:void Model::tick()	16	static
+C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:198:6:void Model::resetGame()	16	static
