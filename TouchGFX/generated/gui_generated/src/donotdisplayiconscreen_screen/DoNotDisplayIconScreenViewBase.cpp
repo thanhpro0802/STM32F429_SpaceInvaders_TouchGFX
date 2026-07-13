@@ -110,6 +110,14 @@ DoNotDisplayIconScreenViewBase::DoNotDisplayIconScreenViewBase()
     image7.setXY(20, 195);
     image7.setBitmap(touchgfx::Bitmap(BITMAP_DOUBLESHOT_ID));
     add(image7);
+
+    image9.setXY(110, 96);
+    image9.setBitmap(touchgfx::Bitmap(BITMAP_BOSS2R_ID));
+    add(image9);
+
+    image8.setXY(40, 242);
+    image8.setBitmap(touchgfx::Bitmap(BITMAP_BLUEFORCEFIELD_ID));
+    add(image8);
 }
 
 DoNotDisplayIconScreenViewBase::~DoNotDisplayIconScreenViewBase()

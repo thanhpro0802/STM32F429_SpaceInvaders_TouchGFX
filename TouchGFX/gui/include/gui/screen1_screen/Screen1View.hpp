@@ -33,6 +33,7 @@ private:
     touchgfx::Image playerBulletRight;
     touchgfx::Image playerBullet2;
     touchgfx::Image bossImage;
+    touchgfx::Image bossForcefield;
     touchgfx::Box bossHpBarBg;
     touchgfx::Box bossHpBar;
     touchgfx::Image levelTensDigit;

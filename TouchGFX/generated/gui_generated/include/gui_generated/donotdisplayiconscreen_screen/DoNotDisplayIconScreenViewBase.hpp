@@ -51,6 +51,8 @@ protected:
     touchgfx::Image image5;
     touchgfx::Image image6;
     touchgfx::Image image7;
+    touchgfx::Image image9;
+    touchgfx::Image image8;
 
 private:
 
