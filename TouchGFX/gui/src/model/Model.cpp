@@ -1,5 +1,6 @@
 #include <gui/model/Model.hpp>
 #include <gui/model/ModelListener.hpp>
+#include <cmath>
 
 Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), playerMoveDirectionY(0), playerMoveTimerY(0), enemyShootCooldown(90), nextEnemyShooterIndex(0), missileAmmo(0)
 {
@@ -28,10 +29,14 @@ Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), p
     state.rapidFireTimer = 0;
     state.rapidFireTimer = 0;
     autoFireCooldown = 0;
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 20; i++)
     {
         state.enemyBullets[i].active = false;
+        state.enemyBullets[i].angle = 0.0f;
     }
+    state.bossLaserPhase = 0;
+    state.bossLaserTimer = 0;
+    state.bossLockedX = 0;
 
     // Khoi tao vu no
     state.explosionX = 0;
@@ -173,10 +178,14 @@ void Model::startNextLevel()
     state.rapidFireTimer = 0;
     state.rapidFireTimer = 0;
     autoFireCooldown = 0;
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 20; i++)
     {
         state.enemyBullets[i].active = false;
+        state.enemyBullets[i].angle = 0.0f;
     }
+    state.bossLaserPhase = 0;
+    state.bossLaserTimer = 0;
+    state.bossLockedX = 0;
     state.missileActive = false;
     state.itemActive = false;
     state.explosionTimer = 0;
@@ -350,7 +359,15 @@ void Model::tick()
     if (state.bossActive && !state.isGameOver)
     {
         state.bossTimer++;
-        if (state.bossTimer % 3 == 0)
+        
+        // Laser skill trigger
+        if (state.bossLaserPhase == 0 && state.bossTimer % 300 == 0)
+        {
+            state.bossLaserPhase = 1;
+            state.bossLaserTimer = 120; // 2 seconds
+        }
+
+        if (state.bossLaserPhase == 0 && state.bossTimer % 3 == 0)
         {
             state.bossX += state.bossDirection * 2;
             if (state.bossX <= 10)
@@ -366,7 +383,7 @@ void Model::tick()
         }
         
         // Boss Shoot
-        if (state.bossTimer % 60 == 0)
+        if (state.bossLaserPhase == 0 && state.bossTimer % 60 == 0)
         {
             if (state.bossType == 1)
             {
@@ -409,6 +426,37 @@ void Model::tick()
                 }
             }
         }
+
+        // Handle Aiming Phase (Phase 1)
+        if (state.bossLaserPhase == 1)
+        {
+            if (state.bossLaserTimer > 0)
+            {
+                state.bossLaserTimer--;
+                for (int i = 0; i < 10; i++)
+                {
+                    int j = 5 + i;
+                    state.enemyBullets[j].active = true;
+                    
+                    float startX = state.bossX + 4.0f + i * 6.0f;
+                    float startY = state.bossY + 60.0f;
+                    state.enemyBullets[j].x = startX;
+                    state.enemyBullets[j].y = startY;
+                    state.enemyBullets[j].type = 0;
+                    
+                    float targetX = state.playerX + 15.0f;
+                    float targetY = state.playerY + 13.0f;
+                    float dx = targetX - startX;
+                    float dy = targetY - startY;
+                    state.enemyBullets[j].angle = std::atan2(dx, dy);
+                }
+            }
+            else
+            {
+                state.bossLaserPhase = 2;
+                state.bossLockedX = state.playerX;
+            }
+        }
     }
 
     // 0. Giam timer vu no neu dang dien ra
@@ -423,34 +471,76 @@ void Model::tick()
     }
 
     bool anyEnemyBulletActive = false;
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 20; i++)
     {
         if (state.enemyBullets[i].active)
         {
             anyEnemyBulletActive = true;
-            state.enemyBullets[i].y += enemyBulletSpeed;
 
-            if (state.enemyBullets[i].y > 320)
+            // In Phase 1, lasers are tracking and should not move down or hurt the player yet
+            if (state.bossLaserPhase == 1 && i >= 5 && i < 15)
             {
-                state.enemyBullets[i].active = false;
-                enemyShootCooldown = 70 - (levelBoost * 2);
-                if (enemyShootCooldown < 35) enemyShootCooldown = 35;
+                // Managed by aiming tracking logic
             }
-            else if (!state.isGameOver)
+            else
             {
-                const int px = state.playerX;
-                const int py = state.playerY;
-                if (state.enemyBullets[i].x + 4 >= px && state.enemyBullets[i].x <= px + 30 &&
-                    state.enemyBullets[i].y + 14 >= py && state.enemyBullets[i].y <= py + 26)
+                // Phase 2 lasers move slightly faster
+                int16_t speed = enemyBulletSpeed;
+                if (state.bossLaserPhase == 2 && i >= 5 && i < 15)
+                {
+                    speed = enemyBulletSpeed + 2;
+                }
+
+                if (state.bossLaserPhase == 2 && i >= 5 && i < 15)
+                {
+                    state.enemyBullets[i].x += speed * std::sin(state.enemyBullets[i].angle);
+                    state.enemyBullets[i].y += speed * std::cos(state.enemyBullets[i].angle);
+                }
+                else
+                {
+                    state.enemyBullets[i].y += speed;
+                }
+
+                if (state.enemyBullets[i].y > 320)
                 {
                     state.enemyBullets[i].active = false;
-                    enemyShootCooldown = 80;
-                    if (state.lives > 0)
+                    enemyShootCooldown = 70 - (levelBoost * 2);
+                    if (enemyShootCooldown < 35) enemyShootCooldown = 35;
+                }
+                else if (!state.isGameOver)
+                {
+                    const int px = state.playerX;
+                    const int py = state.playerY;
+                    if (state.enemyBullets[i].x + 4 >= px && state.enemyBullets[i].x <= px + 30 &&
+                        state.enemyBullets[i].y + 14 >= py && state.enemyBullets[i].y <= py + 26)
                     {
-                        state.lives--;
+                        state.enemyBullets[i].active = false;
+                        enemyShootCooldown = 80;
+                        if (state.lives > 0)
+                        {
+                            state.lives--;
+                        }
                     }
                 }
             }
+        }
+    }
+
+    // Reset Laser Phase to 0 when all active lasers in Firing phase are gone
+    if (state.bossLaserPhase == 2)
+    {
+        bool anyLaserActive = false;
+        for (int i = 5; i < 15; i++)
+        {
+            if (state.enemyBullets[i].active)
+            {
+                anyLaserActive = true;
+                break;
+            }
+        }
+        if (!anyLaserActive)
+        {
+            state.bossLaserPhase = 0;
         }
     }
 
@@ -956,10 +1046,14 @@ void Model::resetGame()
     state.rapidFireTimer = 0;
     state.rapidFireTimer = 0;
     autoFireCooldown = 0;
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 20; i++)
     {
         state.enemyBullets[i].active = false;
+        state.enemyBullets[i].angle = 0.0f;
     }
+    state.bossLaserPhase = 0;
+    state.bossLaserTimer = 0;
+    state.bossLockedX = 0;
     
     state.explosionX = 0;
     state.explosionY = 0;

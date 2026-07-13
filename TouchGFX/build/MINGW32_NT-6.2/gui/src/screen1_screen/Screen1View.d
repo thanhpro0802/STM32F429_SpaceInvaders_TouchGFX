@@ -49,6 +49,7 @@ build/MINGW32_NT-6.2/gui/src/screen1_screen/Screen1View.o: \
  gui/include/gui/model/ModelListener.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextureMapper.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/Utils.hpp \
  generated/images/include/images/BitmapDatabase.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp
@@ -101,6 +102,7 @@ gui/include/gui/screen1_screen/Screen1Presenter.hpp:
 gui/include/gui/model/ModelListener.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextureMapper.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Utils.hpp:
 generated/images/include/images/BitmapDatabase.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp:
