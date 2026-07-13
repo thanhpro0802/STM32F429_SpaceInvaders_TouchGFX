@@ -1,5 +1,5 @@
 Application/User/TouchGFX/target/generated/STM32DMA.o: \
- C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/target/generated/STM32DMA.cpp \
+ D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/target/generated/STM32DMA.cpp \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../../Core/Inc/stm32f4xx_hal_conf.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \

@@ -18,6 +18,7 @@ RM := rm -rf
 -include Application/User/TouchGFX/target/generated/subdir.mk
 -include Application/User/TouchGFX/target/subdir.mk
 -include Application/User/TouchGFX/App/subdir.mk
+-include Application/User/Core/subdir.mk
 -include Application/User/subdir.mk
 -include Application/Startup/subdir.mk
 -include objects.mk
@@ -95,8 +96,8 @@ all: main-build
 main-build: STM32F429I_DISCO_REV_D01.elf secondary-outputs
 
 # Tool invocations
-STM32F429I_DISCO_REV_D01.elf STM32F429I_DISCO_REV_D01.map: $(OBJS) $(USER_OBJS) C:\TouchGFXProjects\STM32F429_SpaceInvaders_TouchGFX\STM32F429XX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "STM32F429I_DISCO_REV_D01.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\TouchGFXProjects\STM32F429_SpaceInvaders_TouchGFX\STM32F429XX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F429I_DISCO_REV_D01.map" -Wl,--gc-sections -static -L../../Middlewares/ST/touchgfx/lib/core/cortex_m4f/gcc --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+STM32F429I_DISCO_REV_D01.elf STM32F429I_DISCO_REV_D01.map: $(OBJS) $(USER_OBJS) D:\Lab_He_Nhung\STM32F429_SpaceInvaders_TouchGFX\STM32F429XX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "STM32F429I_DISCO_REV_D01.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Lab_He_Nhung\STM32F429_SpaceInvaders_TouchGFX\STM32F429XX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F429I_DISCO_REV_D01.map" -Wl,--gc-sections -static -L../../Middlewares/ST/touchgfx/lib/core/cortex_m4f/gcc --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

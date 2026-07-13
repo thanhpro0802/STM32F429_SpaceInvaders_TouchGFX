@@ -1,0 +1,39 @@
+HƯỚNG DẪN TÍCH HỢP NÚT BẤM VẬT LÝ CHO GAME SPACE INVADERS (TOUCHGFX) TRÊN KIT STM32F429
+
+1. XÁC NHẬN HIỆN TRẠNG
+Đúng như bạn hiểu, hiện tại game chỉ đang chạy và nhận phím (W, A, S, D, Space) trên mô phỏng (Simulator/TouchGFX Designer). Khi nạp thẳng source code hiện tại xuống kit STM32F429ZIT6 (như board STM32F429I-DISCO), game sẽ hiển thị được nhưng không điều khiển được, do chưa có linh kiện vật lý và code để ánh xạ từ nút bấm sang sự kiện trong game.
+
+2. GIAO TIẾP GIỮA KIT VÀ LINH KIỆN (PHẦN CỨNG)
+- Linh kiện: Bạn cần 5 nút bấm cơ học (Push button / Tactile switch).
+- Cách nối dây: Khuyên dùng phương pháp "Tích cực mức thấp" (Active Low) vì rất an toàn và ổn định:
+  + Một chân của nút bấm nối vào chân GPIO của vi điều khiển (Ví dụ: PA1, PA2...).
+  + Chân còn lại của nút bấm nối chung xuống đất (GND).
+  -> Kết quả: Khi nhả phím, chân GPIO ở mức điện áp cao (Mức 1). Khi nhấn phím, chân GPIO bị kéo xuống GND (Mức 0).
+
+3. CẤU HÌNH CHÂN TRÊN STM32CubeMX (.ioc)
+Bạn mở file cấu hình `.ioc` lên, chọn 5 chân GPIO đang còn trống trên các hàng rào cắm của kit (Lưu ý xem schematics để tránh các chân đang dùng cho màn hình LCD hoặc SDRAM).
+- Chế độ (Mode): Chọn `GPIO_Input`.
+- Pull-up/Pull-down: Bắt buộc chọn `Pull-up` (Điện trở kéo lên bên trong chip). Việc này giúp chân GPIO luôn giữ ở Mức 1 khi chưa có ai nhấn nút, chống nhiễu từ môi trường.
+- User Label: Nên đặt tên cho dễ nhớ để khi gen code ra dễ gọi, ví dụ: BTN_UP, BTN_DOWN, BTN_LEFT, BTN_RIGHT, BTN_SHOOT.
+(Mẹo: Board STM32F429I-DISCO có sẵn 1 nút User Button (màu xanh lam) được nối vào PA0. Bạn có thể dùng luôn nút này làm nút Bắn, chỉ cần cắm thêm 4 nút di chuyển bên ngoài).
+
+4. PHƯƠNG PHÁP XỬ LÝ: DÙNG NGẮT HAY HỎI VÒNG?
+- NGẮT (Interrupt/EXTI): KHÔNG nên dùng cho hệ thống giao diện TouchGFX (trừ các trường hợp đánh thức hệ thống). Nút bấm vật lý có hiện tượng "dội phím" (Bounce), nếu dùng ngắt, một lần nhấn có thể kích hoạt hàng chục ngắt rác, làm treo hoặc giật hệ thống. Hơn nữa, gọi hàm vẽ UI trong trình phục vụ ngắt (ISR) rất dễ làm sập hệ điều hành FreeRTOS đi kèm TouchGFX.
+- HỎI VÒNG (Polling): ĐÂY LÀ CÁCH KHUYÊN DÙNG. TouchGFX có chu kỳ cập nhật màn hình (thường là 60 lần/giây - 60Hz). Bạn sẽ quét trạng thái các nút bấm trong chu kỳ này và kết hợp kỹ thuật phần mềm để chống dội phím (Debounce). Cách này cực kỳ an toàn và đồng bộ mượt mà với khung hình game.
+
+5. THAY ĐỔI CODE RA SAO? (CÁC HƯỚNG TÍCH HỢP)
+Có 2 hướng chính để đưa nút bấm vật lý vào TouchGFX:
+
+CÁCH 1: Dùng Model::tick() (Dễ nhất, phù hợp cho người mới)
+- File `TouchGFX/gui/src/model/Model.cpp` có hàm `Model::tick()`. Hàm này được tự động gọi liên tục mỗi khung hình (khoảng 60 lần/s).
+- Trong file này, bạn gọi hàm thư viện HAL (ví dụ: `HAL_GPIO_ReadPin()`) để đọc trạng thái 5 chân GPIO của nút.
+- Bạn cần viết một đoạn logic nhỏ để chống dội phím (vd: Đếm nếu phím duy trì mức 0 trong 3 tick liên tiếp thì mới tính là 1 lần nhấn hợp lệ).
+- Khi xác nhận có phím nhấn, gọi các hàm điều hướng (giống hệt logic khi bạn bấm phím máy tính) đẩy từ Model lên Presenter, và từ Presenter lên View để vẽ lại tàu vũ trụ.
+
+CÁCH 2: Dùng Hardware Button Controller của TouchGFX (Chuẩn bài, chuyên nghiệp)
+- TouchGFX cung cấp sẵn bộ điều khiển (Button Controller) để nhận tín hiệu cứng và tự động biến nó thành sự kiện bàn phím.
+- Bạn kế thừa class `touchgfx::ButtonController`, và viết đè hàm `virtual bool sample(uint8_t& key)`. Hàm này sẽ đọc GPIO và trả về mã phím (ví dụ phím W trả về mã 'W').
+- Ở file View của màn hình chơi game (vd `PlayScreenView.cpp`), bạn viết đè hàm `handleKeyEvent(uint8_t key)`. Hàm này sẽ tự động bắt được mã phím từ phần cứng truyền lên, từ đó bạn xử lý bắn máy bay giống hệt như đang dùng bàn phím máy tính.
+
+KẾT LUẬN & BƯỚC TIẾP THEO
+Vì bạn yêu cầu chưa đưa code vội, bạn hãy đọc kỹ cấu trúc trên. Bước tiếp theo bạn nên làm là cắm dây trên testboard, cấu hình CubeMX và Gen Code. Khi bạn sẵn sàng, chúng ta sẽ bắt đầu viết logic chống dội phím và tích hợp vào 1 trong 2 CÁCH trên!

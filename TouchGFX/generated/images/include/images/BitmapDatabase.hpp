@@ -61,9 +61,8 @@ const uint16_t BITMAP_TXT_HIGHSCORE_ID = 51;
 const uint16_t BITMAP_TXT_YOURSCORE_ID = 52;
 const uint16_t BITMAP_UFO_BOSS_ID = 53;
 const uint16_t BITMAP_UFO_BOSS_2_ID = 54;
-const uint16_t BITMAP_UFO_BOSS_BACKUP_ID = 55;
-const uint16_t BITMAP_UI_LIFE_ID = 56;
-const uint16_t BITMAP_UI_X_ID = 57;
+const uint16_t BITMAP_UI_LIFE_ID = 55;
+const uint16_t BITMAP_UI_X_ID = 56;
 
 namespace BitmapDatabase
 {

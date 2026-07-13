@@ -14,8 +14,8 @@ class Screen1View : public Screen1ViewBase
 public:
     Screen1View();
     virtual ~Screen1View() {}
-    virtual void setupScreen();
-    virtual void tearDownScreen();
+    virtual void setupScreen() override;
+    virtual void tearDownScreen() override;
     virtual void handleKeyEvent(uint8_t key) override;
     void updateGameState(const GameState& state);
     void gotoGameOverScreen();

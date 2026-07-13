@@ -1,5 +1,5 @@
 Application/User/TouchGFX/target/generated/TouchGFXGeneratedHAL.o: \
- C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/target/generated/TouchGFXGeneratedHAL.cpp \
+ D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/target/generated/TouchGFXGeneratedHAL.cpp \
  ../../TouchGFX/target/generated/TouchGFXGeneratedHAL.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/HAL.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/platform/core/MCUInstrumentation.hpp \
@@ -56,6 +56,7 @@ Application/User/TouchGFX/target/generated/TouchGFXGeneratedHAL.o: \
  ../../TouchGFX/gui/include/gui/model/ModelListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextureMapper.hpp \
  ../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenView.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/menuscreen_screen/MenuScreenViewBase.hpp \
  ../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp \
@@ -67,6 +68,9 @@ Application/User/TouchGFX/target/generated/TouchGFXGeneratedHAL.o: \
  ../../TouchGFX/gui/include/gui/gameoverscreen_screen/GameOverScreenView.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/gameoverscreen_screen/GameOverScreenViewBase.hpp \
  ../../TouchGFX/gui/include/gui/gameoverscreen_screen/GameOverScreenPresenter.hpp \
+ ../../TouchGFX/gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.hpp \
+ ../../TouchGFX/generated/gui_generated/include/gui_generated/donotdisplayiconscreen_screen/DoNotDisplayIconScreenViewBase.hpp \
+ ../../TouchGFX/gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/GPIO.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CWRVectorRenderer.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterColor.hpp \
@@ -184,6 +188,7 @@ Application/User/TouchGFX/target/generated/TouchGFXGeneratedHAL.o: \
 ../../TouchGFX/gui/include/gui/model/ModelListener.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextureMapper.hpp:
 ../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenView.hpp:
 ../../TouchGFX/generated/gui_generated/include/gui_generated/menuscreen_screen/MenuScreenViewBase.hpp:
 ../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp:
@@ -195,6 +200,9 @@ Application/User/TouchGFX/target/generated/TouchGFXGeneratedHAL.o: \
 ../../TouchGFX/gui/include/gui/gameoverscreen_screen/GameOverScreenView.hpp:
 ../../TouchGFX/generated/gui_generated/include/gui_generated/gameoverscreen_screen/GameOverScreenViewBase.hpp:
 ../../TouchGFX/gui/include/gui/gameoverscreen_screen/GameOverScreenPresenter.hpp:
+../../TouchGFX/gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.hpp:
+../../TouchGFX/generated/gui_generated/include/gui_generated/donotdisplayiconscreen_screen/DoNotDisplayIconScreenViewBase.hpp:
+../../TouchGFX/gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/GPIO.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CWRVectorRenderer.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterColor.hpp:

@@ -1,5 +1,5 @@
 Application/User/main.o: \
- C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/Core/Src/main.c \
+ D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Core/Src/main.c \
  ../../Core/Inc/main.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../../Core/Inc/stm32f4xx_hal_conf.h \
