@@ -1,6 +1,18 @@
-#include <gui/screen1_screen/Screen1View.hpp>
+#include <gui/screen1_screen/Screen1View.hpp> // trigger re-parse 2
 #include <touchgfx/Utils.hpp>
 #include <images/BitmapDatabase.hpp>
+#include <touchgfx/Color.hpp>
+
+// Dummy defines fallback just in case TouchGFX Generator hasn't been run yet
+#ifndef BITMAP_UFO_BOSS_2_ID
+#define BITMAP_UFO_BOSS_2_ID BITMAP_UFO_BOSS_ID
+#endif
+#ifndef BITMAP_BOSS_2_LAZER_ID
+#define BITMAP_BOSS_2_LAZER_ID BITMAP_LASER_ENEMY_ID
+#endif
+#ifndef BITMAP_BOSS_3_LAZER_ID
+#define BITMAP_BOSS_3_LAZER_ID BITMAP_LASER_ENEMY_ID
+#endif
 
 Screen1View::Screen1View() : lastScore(-1), lastLives(-1), lastLevel(0)
 {
@@ -14,10 +26,28 @@ Screen1View::Screen1View() : lastScore(-1), lastLives(-1), lastLevel(0)
     levelOnesDigit.setVisible(false);
     add(levelOnesDigit);
 
-    enemyBullet.setXY(0, 0);
-    enemyBullet.setBitmap(touchgfx::Bitmap(BITMAP_LASER_ENEMY_ID));
-    enemyBullet.setVisible(false);
-    add(enemyBullet);
+    for (int i = 0; i < 5; i++)
+    {
+        enemyBullets[i].setXY(0, 0);
+        enemyBullets[i].setBitmap(touchgfx::Bitmap(BITMAP_LASER_ENEMY_ID));
+        enemyBullets[i].setVisible(false);
+        add(enemyBullets[i]);
+    }
+
+    bossImage.setXY(0, 0);
+    bossImage.setBitmap(touchgfx::Bitmap(BITMAP_UFO_BOSS_ID));
+    bossImage.setVisible(false);
+    add(bossImage);
+
+    bossHpBarBg.setPosition(40, 5, 160, 6);
+    bossHpBarBg.setColor(touchgfx::Color::getColorFromRGB(100, 100, 100));
+    bossHpBarBg.setVisible(false);
+    add(bossHpBarBg);
+
+    bossHpBar.setPosition(40, 5, 160, 6);
+    bossHpBar.setColor(touchgfx::Color::getColorFromRGB(255, 0, 0));
+    bossHpBar.setVisible(false);
+    add(bossHpBar);
 }
 
 // Tra ve BitmapId tuong ung voi chu so 0-9
@@ -82,7 +112,7 @@ void Screen1View::setupScreen()
 
     // Dong bo trang thai ban dau tu Model
     const GameState& state = presenter->getGameState();
-    playerShip.setX(state.playerX);
+    playerShip.setXY(state.playerX, state.playerY);
     playerShip.invalidate();
 
     // Hien thi Score va Lives ban dau
@@ -111,6 +141,14 @@ void Screen1View::setupScreen()
         enemyImages[i]->invalidate();
     }
 
+    playerBulletLeft.setBitmap(touchgfx::Bitmap(BITMAP_LASER_PLAYER_ID));
+    playerBulletLeft.setVisible(false);
+    add(playerBulletLeft);
+    
+    playerBulletRight.setBitmap(touchgfx::Bitmap(BITMAP_LASER_PLAYER_ID));
+    playerBulletRight.setVisible(false);
+    add(playerBulletRight);
+
     updateLevelIntro(state);
 }
 
@@ -129,6 +167,14 @@ void Screen1View::handleKeyEvent(uint8_t key)
     {
         presenter->setPlayerMoveDirection(1);
     }
+    else if (key == 16 || key == 'w' || key == 'W')
+    {
+        presenter->setPlayerMoveDirectionY(-1);
+    }
+    else if (key == 17 || key == 's' || key == 'S')
+    {
+        presenter->setPlayerMoveDirectionY(1);
+    }
     else if (key == 32 || key == ' ') // Phím Space để bắn đạn
     {
         presenter->fireBullet();
@@ -141,10 +187,10 @@ void Screen1View::updateGameState(const GameState& state)
     updateLevelIntro(state);
 
     // Cap nhat vi tri tau nguoi choi
-    if (playerShip.getX() != state.playerX)
+    if (playerShip.getX() != state.playerX || playerShip.getY() != state.playerY)
     {
         playerShip.invalidate();
-        playerShip.setX(state.playerX);
+        playerShip.setXY(state.playerX, state.playerY);
         playerShip.invalidate();
     }
 
@@ -164,18 +210,59 @@ void Screen1View::updateGameState(const GameState& state)
         }
     }
 
-    if (enemyBullet.isVisible() != state.enemyBulletActive)
+    // Cap nhat dan chéo trái
+    if (playerBulletLeft.isVisible() != state.bulletLeftActive)
     {
-        enemyBullet.setVisible(state.enemyBulletActive);
-        enemyBullet.invalidate();
+        playerBulletLeft.setVisible(state.bulletLeftActive);
+        playerBulletLeft.invalidate();
     }
-    if (state.enemyBulletActive)
+    if (state.bulletLeftActive)
     {
-        if (enemyBullet.getX() != state.enemyBulletX || enemyBullet.getY() != state.enemyBulletY)
+        if (playerBulletLeft.getX() != state.bulletLeftX || playerBulletLeft.getY() != state.bulletLeftY)
         {
-            enemyBullet.invalidate();
-            enemyBullet.setXY(state.enemyBulletX, state.enemyBulletY);
-            enemyBullet.invalidate();
+            playerBulletLeft.invalidate();
+            playerBulletLeft.setXY(state.bulletLeftX, state.bulletLeftY);
+            playerBulletLeft.invalidate();
+        }
+    }
+
+    // Cap nhat dan chéo phải
+    if (playerBulletRight.isVisible() != state.bulletRightActive)
+    {
+        playerBulletRight.setVisible(state.bulletRightActive);
+        playerBulletRight.invalidate();
+    }
+    if (state.bulletRightActive)
+    {
+        if (playerBulletRight.getX() != state.bulletRightX || playerBulletRight.getY() != state.bulletRightY)
+        {
+            playerBulletRight.invalidate();
+            playerBulletRight.setXY(state.bulletRightX, state.bulletRightY);
+            playerBulletRight.invalidate();
+        }
+    }
+
+    for (int i = 0; i < 5; i++)
+    {
+        if (enemyBullets[i].isVisible() != state.enemyBullets[i].active)
+        {
+            enemyBullets[i].setVisible(state.enemyBullets[i].active);
+            enemyBullets[i].invalidate();
+        }
+        if (state.enemyBullets[i].active)
+        {
+            touchgfx::BitmapId bmp = BITMAP_LASER_ENEMY_ID;
+            if (state.enemyBullets[i].type == 1) bmp = BITMAP_BOSS_2_LAZER_ID;
+            else if (state.enemyBullets[i].type == 2) bmp = BITMAP_BOSS_3_LAZER_ID;
+            
+            enemyBullets[i].setBitmap(touchgfx::Bitmap(bmp));
+            
+            if (enemyBullets[i].getX() != state.enemyBullets[i].x || enemyBullets[i].getY() != state.enemyBullets[i].y)
+            {
+                enemyBullets[i].invalidate();
+                enemyBullets[i].setXY(state.enemyBullets[i].x, state.enemyBullets[i].y);
+                enemyBullets[i].invalidate();
+            }
         }
     }
 
@@ -270,6 +357,46 @@ void Screen1View::updateGameState(const GameState& state)
                 enemyImages[i]->setXY(state.enemies[i].x, state.enemies[i].y);
                 enemyImages[i]->invalidate();
             }
+        }
+    }
+
+    // Cap nhat Boss
+    if (bossImage.isVisible() != state.bossActive)
+    {
+        bossImage.setVisible(state.bossActive);
+        bossImage.invalidate();
+    }
+    if (state.bossActive)
+    {
+        touchgfx::BitmapId bossBmp = (state.bossType == 1) ? BITMAP_UFO_BOSS_ID : BITMAP_UFO_BOSS_2_ID;
+        bossImage.setBitmap(touchgfx::Bitmap(bossBmp));
+
+        if (bossImage.getX() != state.bossX || bossImage.getY() != state.bossY)
+        {
+            bossImage.invalidate();
+            bossImage.setXY(state.bossX, state.bossY);
+            bossImage.invalidate();
+        }
+    }
+
+    // Cap nhat Boss HP Bar
+    bool showBossHp = state.bossActive;
+    if (bossHpBarBg.isVisible() != showBossHp)
+    {
+        bossHpBarBg.setVisible(showBossHp);
+        bossHpBar.setVisible(showBossHp);
+        bossHpBarBg.invalidate();
+        bossHpBar.invalidate();
+    }
+    if (showBossHp)
+    {
+        int16_t newWidth = (160 * state.bossHp) / state.bossMaxHp;
+        if (newWidth < 0) newWidth = 0;
+        if (bossHpBar.getWidth() != newWidth)
+        {
+            bossHpBar.invalidate();
+            bossHpBar.setWidth(newWidth);
+            bossHpBar.invalidate();
         }
     }
 

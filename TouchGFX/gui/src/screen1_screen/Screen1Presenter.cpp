@@ -31,10 +31,6 @@ void Screen1Presenter::setPlayerX(int16_t x)
     model->setPlayerX(x);
 }
 
-void Screen1Presenter::setPlayerMoveDirection(int8_t direction)
-{
-    model->setPlayerMoveDirection(direction);
-}
 
 void Screen1Presenter::fireBullet()
 {

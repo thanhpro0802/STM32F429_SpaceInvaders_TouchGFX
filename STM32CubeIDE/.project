@@ -515,6 +515,26 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_background.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_boss1kbg.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_boss1kbg.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_boss_2_lazer.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_boss_2_lazer.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_boss_3_lazer.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_boss_3_lazer.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_boss_original_backup.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_boss_original_backup.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_btn_back.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_btn_back.cpp</locationURI>
@@ -545,9 +565,29 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_bullet_missile.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_enemy1.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy1.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_enemy2.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy2.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_enemy3.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy3.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_enemy_blue.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy_blue.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_enemy_blue_backup.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy_blue_backup.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_enemy_red.cpp</name>
@@ -555,9 +595,19 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy_red.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_enemy_red_backup.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy_red_backup.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_enemy_spikey.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy_spikey.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_enemy_spikey_backup.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_enemy_spikey_backup.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_explosion.cpp</name>
@@ -700,9 +750,19 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_txt_yourscore.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_ufo-boss-2.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_ufo-boss-2.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_ufo_boss.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_ufo_boss.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_ufo_boss_backup.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_ufo_boss_backup.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_ui_life.cpp</name>
