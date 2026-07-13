@@ -77,6 +77,12 @@ Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), p
     state.bossTimer = 0;
     
     state.enemyDirection = 1; // Mac dinh di qua phai
+    for (int i = 0; i < MAX_ENEMIES; i++)
+    {
+        enemyVelX[i] = 0;
+        enemyBobPhase[i] = 0;
+        enemyMoveDelay[i] = 0;
+    }
     initializeEnemiesForLevel(state.level);
 }
 
@@ -107,44 +113,30 @@ void Model::initializeEnemiesForLevel(uint8_t level)
 
     state.bossActive = false;
 
-    const int16_t startY = 40 + (((level - 1) / 2) > 5 ? 5 : ((level - 1) / 2)) * 3;
-    const uint8_t pattern = (level - 1) % 5;
+    const int16_t startY = 28 + (((level - 1) / 2) > 5 ? 5 : ((level - 1) / 2)) * 3;
+    const uint8_t levelBoost = (level > 12) ? 12 : level;
+    const uint8_t enemyCount = (level < 4) ? (uint8_t)(7 + level) : MAX_ENEMIES;
     for (int i = 0; i < MAX_ENEMIES; i++)
     {
-        int row = i / 5;
-        int col = i % 5;
-        int16_t x = 15 + col * 35;
-        int16_t y = startY + row * 25;
-
-        if (pattern == 1)
-        {
-            x = 28 + i * 27;
-            y = startY + 16;
-        }
-        else if (pattern == 2)
-        {
-            const int16_t diamondX[MAX_ENEMIES] = {105, 82, 128, 59, 105, 151, 82, 128, 105, 105};
-            const int16_t diamondY[MAX_ENEMIES] = {0, 20, 20, 40, 40, 40, 60, 60, 80, 100};
-            x = diamondX[i];
-            y = startY + diamondY[i];
-        }
-        else if (pattern == 3)
-        {
-            x = 12 + col * 40 + ((row == 0) ? 0 : 18);
-            y = startY + row * 32 + ((col % 2) * 10);
-        }
-        else if (pattern == 4)
-        {
-            const int16_t arrowX[MAX_ENEMIES] = {90, 118, 90, 118, 38, 64, 90, 116, 142, 90};
-            const int16_t arrowY[MAX_ENEMIES] = {0, 0, 24, 24, 56, 56, 56, 56, 56, 86};
-            x = arrowX[i];
-            y = startY + arrowY[i];
-        }
+        const int row = i / 5;
+        const int col = i % 5;
+        const int16_t laneX = 12 + col * 43;
+        const int16_t x = laneX + (std::rand() % 13) - 6;
+        const int16_t y = startY + row * 44 + (std::rand() % 14);
 
         state.enemies[i].x = x;
         state.enemies[i].y = y;
-        state.enemies[i].alive = !(pattern == 1 && i >= 7);
-        state.enemies[i].type = (row + col + level + pattern) % 3;
+        if (state.enemies[i].x < 5) state.enemies[i].x = 5;
+        if (state.enemies[i].x > 209) state.enemies[i].x = 209;
+        state.enemies[i].alive = (i < enemyCount);
+        state.enemies[i].type = (std::rand() + row + col + level) % 3;
+        enemyVelX[i] = ((std::rand() % 2) == 0) ? -1 : 1;
+        if (levelBoost > 5 && (std::rand() % 3) == 0)
+        {
+            enemyVelX[i] *= 2;
+        }
+        enemyBobPhase[i] = std::rand() % 12;
+        enemyMoveDelay[i] = std::rand() % 4;
         
         if (state.enemies[i].type == 0)
             state.enemies[i].hp = 1;
@@ -298,10 +290,9 @@ void Model::tick()
         bulletSpeed = 14;
     }
     const int16_t itemFallSpeed = 2 + (levelBoost / 8);
-    const int16_t enemyStep = 3 + (levelBoost / 5);
+    const int16_t enemyStep = 2 + (levelBoost / 6);
     const int16_t enemyDropStep = 6 + (levelBoost / 4);
-    const uint8_t currentPattern = (state.level - 1) % 5;
-    const int enemyMoveInterval = 18 - (levelBoost / 2) + ((currentPattern == 1) ? 5 : 0);
+    const int enemyMoveInterval = 10 - (levelBoost / 3);
     const int16_t enemyBulletSpeed = 3 + (levelBoost / 6);
 
     if (state.levelIntroTimer > 0)
@@ -510,8 +501,11 @@ void Model::tick()
                     state.enemies[e].alive = true;
                     state.enemies[e].type = 2; // Spikey (enemy3)
                     state.enemies[e].hp = 5;   // 5 hits to die
-                    state.enemies[e].x = 20 + spawned * 40;
-                    state.enemies[e].y = state.bossY + 80;
+                    state.enemies[e].x = 12 + spawned * 43 + (std::rand() % 13) - 6;
+                    state.enemies[e].y = state.bossY + 70 + (std::rand() % 18);
+                    enemyVelX[e] = ((std::rand() % 2) == 0) ? -1 : 1;
+                    enemyBobPhase[e] = std::rand() % 12;
+                    enemyMoveDelay[e] = std::rand() % 4;
                     spawned++;
                 }
             }
@@ -1112,54 +1106,100 @@ void Model::tick()
         }
     }
 
-    // 2. Logic di chuyen quai vat sau moi 15 ticks de giam toc do di chuyen
+    // 2. Logic di chuyen quai vat voi drift rieng de nhin tu nhien hon
     tickCount++;
     if (tickCount >= enemyMoveInterval && !state.isGameOver)
     {
         tickCount = 0;
-        bool changeDir = false;
-
-        // Kiem tra xem co con quai nao cham bien trai/phai chua
         for (int i = 0; i < MAX_ENEMIES; i++)
         {
-            if (state.enemies[i].alive)
+            if (!state.enemies[i].alive)
             {
-                int nextX = state.enemies[i].x + state.enemyDirection * enemyStep;
-                // Gioi han chieu rong man hinh 240px, quai vat rong khoang 26px
-                if (nextX < 5 || nextX > 240 - 26 - 5)
+                continue;
+            }
+
+            if (enemyMoveDelay[i] > 0)
+            {
+                enemyMoveDelay[i]--;
+                continue;
+            }
+
+            if ((std::rand() % 18) == 0)
+            {
+                enemyVelX[i] = -enemyVelX[i];
+            }
+
+            int16_t nextX = state.enemies[i].x + enemyVelX[i] * enemyStep;
+            if (nextX < 5)
+            {
+                nextX = 5;
+                enemyVelX[i] = (enemyVelX[i] < 0) ? -enemyVelX[i] : enemyVelX[i];
+                state.enemies[i].y += enemyDropStep / 2;
+            }
+            else if (nextX > 209)
+            {
+                nextX = 209;
+                enemyVelX[i] = (enemyVelX[i] > 0) ? -enemyVelX[i] : enemyVelX[i];
+                state.enemies[i].y += enemyDropStep / 2;
+            }
+
+            enemyBobPhase[i]++;
+            state.enemies[i].x = nextX;
+            if ((enemyBobPhase[i] % 6) == 0)
+            {
+                state.enemies[i].y += 1;
+            }
+            else if ((enemyBobPhase[i] % 11) == 0 && state.enemies[i].y > 20)
+            {
+                state.enemies[i].y -= 1;
+            }
+
+            if ((std::rand() % 25) == 0)
+            {
+                state.enemies[i].y += 1;
+            }
+
+            for (int j = 0; j < MAX_ENEMIES; j++)
+            {
+                if (i == j || !state.enemies[j].alive)
                 {
-                    changeDir = true;
+                    continue;
+                }
+
+                const int16_t dx = state.enemies[i].x - state.enemies[j].x;
+                const int16_t dy = state.enemies[i].y - state.enemies[j].y;
+                if (std::abs(dx) < 30 && std::abs(dy) < 24)
+                {
+                    if (dx < 0 || (dx == 0 && i < j))
+                    {
+                        state.enemies[i].x -= 2;
+                        enemyVelX[i] = -1;
+                    }
+                    else
+                    {
+                        state.enemies[i].x += 2;
+                        enemyVelX[i] = 1;
+                    }
+
+                    if (dy <= 0 && state.enemies[i].y > 20)
+                    {
+                        state.enemies[i].y -= 1;
+                    }
+                    else
+                    {
+                        state.enemies[i].y += 1;
+                    }
+
+                    if (state.enemies[i].x < 5) state.enemies[i].x = 5;
+                    if (state.enemies[i].x > 209) state.enemies[i].x = 209;
                     break;
                 }
             }
-        }
 
-        if (changeDir)
-        {
-            state.enemyDirection = -state.enemyDirection; // Doi huong
-            for (int i = 0; i < MAX_ENEMIES; i++)
+            if (state.enemies[i].y >= state.playerY - 20)
             {
-                if (state.enemies[i].alive)
-                {
-                    state.enemies[i].y += enemyDropStep; // Di xuong 8px
-                    // Kiem tra neu quai vat di xuong qua gan tau nguoi choi
-                    if (state.enemies[i].y >= state.playerY - 20)
-                    {
-                        state.isGameOver = true;
-                        updateHighScores();
-                    }
-                }
-            }
-        }
-        else
-        {
-            // Di chuyen ngang binh thuong
-            for (int i = 0; i < MAX_ENEMIES; i++)
-            {
-                if (state.enemies[i].alive)
-                {
-                    state.enemies[i].x += state.enemyDirection * enemyStep;
-                }
+                state.isGameOver = true;
+                updateHighScores();
             }
         }
     }

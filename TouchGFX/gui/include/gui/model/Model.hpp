@@ -142,6 +142,9 @@ protected:
     int16_t enemyShootCooldown;
     uint8_t nextEnemyShooterIndex;
     uint8_t missileAmmo;
+    int8_t enemyVelX[MAX_ENEMIES];
+    uint8_t enemyBobPhase[MAX_ENEMIES];
+    uint8_t enemyMoveDelay[MAX_ENEMIES];
     int32_t highScores[3]; // Luu top 3 diem cao nhat
     int16_t autoFireCooldown;
 };
