@@ -976,6 +976,24 @@
             "Width": 16,
             "Height": 16,
             "RelativeFilename": "doubleshot.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "image9",
+            "X": 110,
+            "Y": 96,
+            "Width": 64,
+            "Height": 64,
+            "RelativeFilename": "boss2r.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "image8",
+            "X": 40,
+            "Y": 242,
+            "Width": 80,
+            "Height": 80,
+            "RelativeFilename": "blueforcefield.png"
           }
         ],
         "Interactions": []

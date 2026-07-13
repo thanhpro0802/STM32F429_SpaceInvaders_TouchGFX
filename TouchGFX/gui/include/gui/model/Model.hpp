@@ -89,9 +89,13 @@ struct GameState
     int16_t bossMaxHp;
     int16_t bossDirection; // 1: Phải, -1: Trái
     int16_t bossTimer;
-    int8_t bossLaserPhase;      // 0: Normal, 1: Aiming, 2: Firing
+    int8_t bossLaserPhase;      // 0: Normal, 1: Aiming, 2: Firing, 3: FlickAim, 4: FlickFire, 5: GridAim, 6: GridFire
     int16_t bossLaserTimer;
     int16_t bossLockedX;
+    bool bossForcefieldActive;
+    bool bossForcefieldTriggered;
+    int8_t bossMinionsAlive;
+    int8_t bossLaserWavesLeft;
 };
 
 class ModelListener;

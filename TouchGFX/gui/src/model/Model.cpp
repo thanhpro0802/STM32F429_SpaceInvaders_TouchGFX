@@ -1,9 +1,12 @@
 #include <gui/model/Model.hpp>
 #include <gui/model/ModelListener.hpp>
 #include <cmath>
+#include <cstdlib>
+#include <ctime>
 
 Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), playerMoveDirectionY(0), playerMoveTimerY(0), enemyShootCooldown(90), nextEnemyShooterIndex(0), missileAmmo(0)
 {
+    std::srand((unsigned int)std::time(0));
     // Khoi tao gia tri mac dinh cho game
     state.playerX = 105;
     state.playerY = 280;
@@ -37,6 +40,10 @@ Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), p
     state.bossLaserPhase = 0;
     state.bossLaserTimer = 0;
     state.bossLockedX = 0;
+    state.bossForcefieldActive = false;
+    state.bossForcefieldTriggered = false;
+    state.bossMinionsAlive = 0;
+    state.bossLaserWavesLeft = 0;
 
     // Khoi tao vu no
     state.explosionX = 0;
@@ -186,6 +193,10 @@ void Model::startNextLevel()
     state.bossLaserPhase = 0;
     state.bossLaserTimer = 0;
     state.bossLockedX = 0;
+    state.bossForcefieldActive = false;
+    state.bossForcefieldTriggered = false;
+    state.bossMinionsAlive = 0;
+    state.bossLaserWavesLeft = 0;
     state.missileActive = false;
     state.itemActive = false;
     state.explosionTimer = 0;
@@ -359,15 +370,40 @@ void Model::tick()
     if (state.bossActive && !state.isGameOver)
     {
         state.bossTimer++;
-        
-        // Laser skill trigger
-        if (state.bossLaserPhase == 0 && state.bossTimer % 300 == 0)
+
+        // Laser skill trigger - only for Boss 1 (bossType == 1), randomly pick skill
+        if (state.bossType == 1 && state.bossLaserPhase == 0 && state.bossTimer % 300 == 0)
         {
-            state.bossLaserPhase = 1;
+            if (std::rand() % 2 == 0)
+            {
+                state.bossLaserPhase = 1; // Rotating laser
+            }
+            else
+            {
+                state.bossLaserPhase = 3; // Flickering laser
+            }
             state.bossLaserTimer = 120; // 2 seconds
         }
 
-        if (state.bossLaserPhase == 0 && state.bossTimer % 3 == 0)
+        // Boss 2 Laser Grid trigger (Phase 5) - every 450 ticks, or continuously (1 wave at a time) if forcefield is active
+        if (state.bossType == 2 && state.bossLaserPhase == 0)
+        {
+            if (state.bossForcefieldActive)
+            {
+                state.bossLaserPhase = 5; // Grid laser aiming/warning
+                state.bossLaserTimer = 120; // 2 seconds
+                state.bossLaserWavesLeft = 1; // 1 wave (will loop if shield is still active)
+            }
+            else if (state.bossTimer % 450 == 0)
+            {
+                state.bossLaserPhase = 5; // Grid laser aiming/warning
+                state.bossLaserTimer = 120; // 2 seconds
+                state.bossLaserWavesLeft = 1; // 1 wave only when not shielded
+            }
+        }
+
+        // Boss movement - freeze when using laser skill or when forcefield shield is active
+        if (state.bossLaserPhase == 0 && !state.bossForcefieldActive && state.bossTimer % 3 == 0)
         {
             state.bossX += state.bossDirection * 2;
             if (state.bossX <= 10)
@@ -381,8 +417,8 @@ void Model::tick()
                 state.bossDirection = -1;
             }
         }
-        
-        // Boss Shoot
+
+        // Boss Shoot - only when not in laser skill phase
         if (state.bossLaserPhase == 0 && state.bossTimer % 60 == 0)
         {
             if (state.bossType == 1)
@@ -457,6 +493,81 @@ void Model::tick()
                 state.bossLockedX = state.playerX;
             }
         }
+
+        // Boss 2 Shield and Minion spawn logic
+        if (state.bossType == 2 && state.bossHp <= 10 && !state.bossForcefieldTriggered)
+        {
+            state.bossForcefieldActive = true;
+            state.bossForcefieldTriggered = true;
+            state.bossX = 88; // Center the boss horizontally
+            state.bossY = 30;  // Initial Y height
+
+            int spawned = 0;
+            for (int e = 0; e < MAX_ENEMIES && spawned < 5; e++)
+            {
+                if (!state.enemies[e].alive)
+                {
+                    state.enemies[e].alive = true;
+                    state.enemies[e].type = 2; // Spikey (enemy3)
+                    state.enemies[e].hp = 5;   // 5 hits to die
+                    state.enemies[e].x = 20 + spawned * 40;
+                    state.enemies[e].y = state.bossY + 80;
+                    spawned++;
+                }
+            }
+            state.bossMinionsAlive = spawned;
+        }
+
+        // Handle Aiming Phase 3 (Flickering - track player X, vertical shoot)
+        if (state.bossLaserPhase == 3)
+        {
+            if (state.bossLaserTimer > 0)
+            {
+                state.bossLaserTimer--;
+                for (int i = 0; i < 10; i++)
+                {
+                    int j = 5 + i;
+                    state.enemyBullets[j].active = true;
+                    state.enemyBullets[j].x = state.playerX - 45.0f + (i * 10.0f);
+                    state.enemyBullets[j].y = state.bossY + 60.0f;
+                    state.enemyBullets[j].type = 0;
+                    state.enemyBullets[j].angle = 0.0f; // shoot straight down
+                }
+            }
+            else
+            {
+                // Lock positions and enter firing phase
+                state.bossLaserPhase = 4;
+            }
+        }
+
+        // Handle Aiming Phase 5 (Grid Laser Aiming - warning lines spread across screen)
+        if (state.bossLaserPhase == 5)
+        {
+            if (state.bossLaserTimer > 0)
+            {
+                state.bossLaserTimer--;
+                for (int i = 0; i < 4; i++)
+                {
+                    int j = 5 + i;
+                    state.enemyBullets[j].active = true;
+                    state.enemyBullets[j].x = (i + 1) * 48.0f; // Spaced at 48, 96, 144, 192. Divides 240px width into 5 equal 48px zones.
+                    state.enemyBullets[j].y = state.bossY + 60.0f;
+                    state.enemyBullets[j].type = 0;
+                    state.enemyBullets[j].angle = 0.0f; // vertical
+                }
+                // Ensure remaining slots are inactive (slots 9 to 14)
+                for (int i = 4; i < 10; i++)
+                {
+                    int j = 5 + i;
+                    state.enemyBullets[j].active = false;
+                }
+            }
+            else
+            {
+                state.bossLaserPhase = 6; // Fire the grid
+            }
+        }
     }
 
     // 0. Giam timer vu no neu dang dien ra
@@ -470,15 +581,40 @@ void Model::tick()
         state.largeExplosionTimer--;
     }
 
-    bool anyEnemyBulletActive = false;
+    // Boss 2 Minion defeat checker to turn off Forcefield
+    if (state.bossActive && state.bossType == 2 && state.bossForcefieldActive)
+    {
+        int aliveMinionsCount = 0;
+        for (int i = 0; i < MAX_ENEMIES; i++)
+        {
+            if (state.enemies[i].alive)
+            {
+                aliveMinionsCount++;
+            }
+        }
+        state.bossMinionsAlive = aliveMinionsCount;
+        if (state.bossMinionsAlive == 0)
+        {
+            state.bossForcefieldActive = false;
+        }
+    }
+
+    bool anyNormalEnemyBulletActive = false;
+    for (int i = 0; i < 5; i++)
+    {
+        if (state.enemyBullets[i].active)
+        {
+            anyNormalEnemyBulletActive = true;
+        }
+    }
+
     for (int i = 0; i < 20; i++)
     {
         if (state.enemyBullets[i].active)
         {
-            anyEnemyBulletActive = true;
 
-            // In Phase 1, lasers are tracking and should not move down or hurt the player yet
-            if (state.bossLaserPhase == 1 && i >= 5 && i < 15)
+            // In Phase 1, 3, or 5, lasers are warning/tracking and should not move or hurt the player yet
+            if ((state.bossLaserPhase == 1 || state.bossLaserPhase == 3 || state.bossLaserPhase == 5) && i >= 5 && i < 15)
             {
                 // Managed by aiming tracking logic
             }
@@ -493,8 +629,14 @@ void Model::tick()
 
                 if (state.bossLaserPhase == 2 && i >= 5 && i < 15)
                 {
+                    // Rotating laser - fly along computed angle
                     state.enemyBullets[i].x += speed * std::sin(state.enemyBullets[i].angle);
                     state.enemyBullets[i].y += speed * std::cos(state.enemyBullets[i].angle);
+                }
+                else if ((state.bossLaserPhase == 4 || state.bossLaserPhase == 6) && i >= 5 && i < 15)
+                {
+                    // Flickering or Grid laser - fly straight down
+                    state.enemyBullets[i].y += speed;
                 }
                 else
                 {
@@ -527,7 +669,7 @@ void Model::tick()
     }
 
     // Reset Laser Phase to 0 when all active lasers in Firing phase are gone
-    if (state.bossLaserPhase == 2)
+    if (state.bossLaserPhase == 2 || state.bossLaserPhase == 4 || state.bossLaserPhase == 6)
     {
         bool anyLaserActive = false;
         for (int i = 5; i < 15; i++)
@@ -540,11 +682,28 @@ void Model::tick()
         }
         if (!anyLaserActive)
         {
-            state.bossLaserPhase = 0;
+            if (state.bossLaserPhase == 6)
+            {
+                state.bossLaserWavesLeft--;
+                if (state.bossLaserWavesLeft > 0)
+                {
+                    state.bossLaserPhase = 5;
+                    state.bossLaserTimer = 120; // 2 seconds warning
+                }
+                else
+                {
+                    state.bossLaserPhase = 0;
+                }
+            }
+            else
+            {
+                state.bossLaserPhase = 0;
+            }
         }
     }
 
-    if (!state.isGameOver && enemyShootCooldown <= 0 && !anyEnemyBulletActive && !state.bossActive)
+    bool allowEnemyShoot = !state.bossActive || (state.bossActive && state.bossType == 2 && state.bossForcefieldActive);
+    if (!state.isGameOver && enemyShootCooldown <= 0 && !anyNormalEnemyBulletActive && allowEnemyShoot)
     {
         int shooterIndex = -1;
         for (int offset = 0; offset < MAX_ENEMIES; offset++)
@@ -682,7 +841,7 @@ void Model::tick()
                 state.missileY + 20 >= state.bossY && state.missileY <= state.bossY + 64)
             {
                 state.missileActive = false;
-                state.bossHp -= 15;
+                if (!state.bossForcefieldActive) { state.bossHp -= 15; } else { state.score += 50; /* minor reward for hitting shield */ }
                 state.largeExplosionX = state.bossX;
                 state.largeExplosionY = state.bossY;
                 state.largeExplosionTimer = 12;
@@ -737,7 +896,7 @@ void Model::tick()
                 state.bullet2Y + 16 >= state.bossY && state.bullet2Y <= state.bossY + 64)
             {
                 state.bullet2Active = false;
-                state.bossHp -= 1;
+                if (!state.bossForcefieldActive) { state.bossHp -= 1; }
                 state.explosionX = state.bullet2X - 10;
                 state.explosionY = state.bullet2Y - 10;
                 state.explosionTimer = 8;
@@ -793,7 +952,7 @@ void Model::tick()
                 state.bulletLeftY + 16 >= state.bossY && state.bulletLeftY <= state.bossY + 64)
             {
                 state.bulletLeftActive = false;
-                state.bossHp -= 1;
+                if (!state.bossForcefieldActive) { state.bossHp -= 1; }
                 state.explosionX = state.bulletLeftX - 10;
                 state.explosionY = state.bulletLeftY - 10;
                 state.explosionTimer = 8;
@@ -848,7 +1007,7 @@ void Model::tick()
                 state.bulletRightY + 16 >= state.bossY && state.bulletRightY <= state.bossY + 64)
             {
                 state.bulletRightActive = false;
-                state.bossHp -= 1;
+                if (!state.bossForcefieldActive) { state.bossHp -= 1; }
                 state.explosionX = state.bulletRightX - 10;
                 state.explosionY = state.bulletRightY - 10;
                 state.explosionTimer = 8;
@@ -931,7 +1090,7 @@ void Model::tick()
     state.boltBuffTimer = 0;
     state.bulletLeftActive = false;
     state.bulletRightActive = false;
-                state.bossHp -= 1;
+                if (!state.bossForcefieldActive) { state.bossHp -= 1; }
                 state.explosionX = state.bulletX - 10;
                 state.explosionY = state.bulletY - 10;
                 state.explosionTimer = 8;
@@ -1054,6 +1213,10 @@ void Model::resetGame()
     state.bossLaserPhase = 0;
     state.bossLaserTimer = 0;
     state.bossLockedX = 0;
+    state.bossForcefieldActive = false;
+    state.bossForcefieldTriggered = false;
+    state.bossMinionsAlive = 0;
+    state.bossLaserWavesLeft = 0;
     
     state.explosionX = 0;
     state.explosionY = 0;

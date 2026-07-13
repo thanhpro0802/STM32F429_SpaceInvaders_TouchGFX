@@ -530,9 +530,19 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_background.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_blueforcefield.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_blueforcefield.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_boss1kbg.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_boss1kbg.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_boss2r.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/image_boss2r.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_boss_2_lazer.cpp</name>

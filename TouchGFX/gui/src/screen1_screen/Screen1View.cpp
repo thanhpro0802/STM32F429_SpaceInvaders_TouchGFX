@@ -50,6 +50,11 @@ Screen1View::Screen1View() : lastScore(-1), lastLives(-1), lastLevel(0)
     bossImage.setVisible(false);
     add(bossImage);
 
+    bossForcefield.setXY(0, 0);
+    bossForcefield.setBitmap(touchgfx::Bitmap(BITMAP_BLUEFORCEFIELD_ID));
+    bossForcefield.setVisible(false);
+    add(bossForcefield);
+
     bossHpBarBg.setPosition(40, 5, 160, 6);
     bossHpBarBg.setColor(touchgfx::Color::getColorFromRGB(100, 100, 100));
     bossHpBarBg.setVisible(false);
@@ -269,9 +274,15 @@ void Screen1View::updateGameState(const GameState& state)
         }
     }
 
+    // Cap nhat dan quai vat (Enemy Bullets)
     for (int i = 0; i < 20; i++)
     {
         bool showBullet = state.enemyBullets[i].active;
+        // Phase 3 & 5: flickering effect for aiming/warning lasers
+        if ((state.bossLaserPhase == 3 || state.bossLaserPhase == 5) && i >= 5 && i < 15)
+        {
+            showBullet = showBullet && (state.bossLaserTimer % 6 < 3);
+        }
 
         if (enemyBullets[i].isVisible() != showBullet)
         {
@@ -283,17 +294,17 @@ void Screen1View::updateGameState(const GameState& state)
             touchgfx::BitmapId bmpId = BITMAP_LASER_ENEMY_ID;
             if (state.enemyBullets[i].type == 1) bmpId = BITMAP_BOSS_2_LAZER_ID;
             else if (state.enemyBullets[i].type == 2) bmpId = BITMAP_BOSS_3_LAZER_ID;
-            
+
             touchgfx::Bitmap bmp(bmpId);
             enemyBullets[i].setBitmap(bmp);
             enemyBullets[i].setWidth(bmp.getWidth());
             enemyBullets[i].setHeight(bmp.getHeight());
             enemyBullets[i].setBitmapPosition(0.0f, 0.0f);
             enemyBullets[i].setOrigo(bmp.getWidth() / 2.0f, bmp.getHeight() / 2.0f);
-            
-            // Set rotation angle (negated to match TouchGFX coordinate system rotation direction)
+
+            // Negated angle to match TouchGFX coordinate system
             enemyBullets[i].updateAngles(0.0f, 0.0f, -state.enemyBullets[i].angle);
-            
+
             if (enemyBullets[i].getX() != (int16_t)state.enemyBullets[i].x || enemyBullets[i].getY() != (int16_t)state.enemyBullets[i].y)
             {
                 enemyBullets[i].invalidate();
@@ -409,7 +420,7 @@ void Screen1View::updateGameState(const GameState& state)
     }
     if (state.bossActive)
     {
-        touchgfx::BitmapId bossBmp = (state.bossType == 1) ? BITMAP_UFO_BOSS_ID : BITMAP_UFO_BOSS_2_ID;
+        touchgfx::BitmapId bossBmp = (state.bossType == 1) ? BITMAP_UFO_BOSS_ID : BITMAP_BOSS2R_ID;
         bossImage.setBitmap(touchgfx::Bitmap(bossBmp));
 
         if (bossImage.getX() != state.bossX || bossImage.getY() != state.bossY)
@@ -417,6 +428,27 @@ void Screen1View::updateGameState(const GameState& state)
             bossImage.invalidate();
             bossImage.setXY(state.bossX, state.bossY);
             bossImage.invalidate();
+        }
+    }
+
+    // Sync Boss Forcefield visibility and position centered on the boss
+    bool showForcefield = state.bossActive && state.bossForcefieldActive;
+    if (bossForcefield.isVisible() != showForcefield)
+    {
+        bossForcefield.setVisible(showForcefield);
+        bossForcefield.invalidate();
+    }
+    if (showForcefield)
+    {
+        touchgfx::Bitmap forcefieldBmp(BITMAP_BLUEFORCEFIELD_ID);
+        // Center the forcefield on the 64x64 boss
+        int16_t fx = state.bossX + (64 - forcefieldBmp.getWidth()) / 2;
+        int16_t fy = state.bossY + (64 - forcefieldBmp.getHeight()) / 2;
+        if (bossForcefield.getX() != fx || bossForcefield.getY() != fy)
+        {
+            bossForcefield.invalidate();
+            bossForcefield.setXY(fx, fy);
+            bossForcefield.invalidate();
         }
     }
 
