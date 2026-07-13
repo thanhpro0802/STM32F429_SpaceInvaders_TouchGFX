@@ -4,6 +4,10 @@
 #include <cstdlib>
 #include <ctime>
 
+#ifndef SIMULATOR
+#include "main.h"
+#endif
+
 Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), playerMoveDirectionY(0), playerMoveTimerY(0), enemyShootCooldown(90), nextEnemyShooterIndex(0), missileAmmo(0)
 {
     std::srand((unsigned int)std::time(0));
@@ -44,6 +48,15 @@ Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), p
     state.bossForcefieldTriggered = false;
     state.bossMinionsAlive = 0;
     state.bossLaserWavesLeft = 0;
+
+#ifndef SIMULATOR
+    btnW_Debounce = 0;
+    btnS_Debounce = 0;
+    btnA_Debounce = 0;
+    btnD_Debounce = 0;
+    btnSpace_Debounce = 0;
+    prevSpacePressed = false;
+#endif
 
     // Khoi tao vu no
     state.explosionX = 0;
@@ -283,6 +296,60 @@ void Model::setPlayerMoveDirectionY(int8_t direction)
 static int tickCount = 0;
 void Model::tick()
 {
+#ifndef SIMULATOR
+    // Doc trang thai cac nut (GPIO = 0 la nhan, GPIO = 1 la nha do dung Pull-up)
+    if (HAL_GPIO_ReadPin(BTN_W_GPIO_Port, BTN_W_Pin) == GPIO_PIN_RESET) {
+        if (btnW_Debounce < 3) btnW_Debounce++;
+    } else {
+        btnW_Debounce = 0;
+    }
+
+    if (HAL_GPIO_ReadPin(BTN_S_GPIO_Port, BTN_S_Pin) == GPIO_PIN_RESET) {
+        if (btnS_Debounce < 3) btnS_Debounce++;
+    } else {
+        btnS_Debounce = 0;
+    }
+
+    if (HAL_GPIO_ReadPin(BTN_A_GPIO_Port, BTN_A_Pin) == GPIO_PIN_RESET) {
+        if (btnA_Debounce < 3) btnA_Debounce++;
+    } else {
+        btnA_Debounce = 0;
+    }
+
+    if (HAL_GPIO_ReadPin(BTN_D_GPIO_Port, BTN_D_Pin) == GPIO_PIN_RESET) {
+        if (btnD_Debounce < 3) btnD_Debounce++;
+    } else {
+        btnD_Debounce = 0;
+    }
+
+    if (HAL_GPIO_ReadPin(BTN_SPACE_GPIO_Port, BTN_SPACE_Pin) == GPIO_PIN_RESET) {
+        if (btnSpace_Debounce < 3) btnSpace_Debounce++;
+    } else {
+        btnSpace_Debounce = 0;
+    }
+
+    // Xu ly di chuyen Y
+    if (btnW_Debounce >= 3) {
+        setPlayerMoveDirectionY(-1);
+    } else if (btnS_Debounce >= 3) {
+        setPlayerMoveDirectionY(1);
+    }
+    
+    // Xu ly di chuyen X
+    if (btnA_Debounce >= 3) {
+        setPlayerMoveDirection(-1);
+    } else if (btnD_Debounce >= 3) {
+        setPlayerMoveDirection(1);
+    }
+
+    // Xu ly ban (chi ban khi phat hien chuyen tu nha sang nhan)
+    bool isSpacePressed = (btnSpace_Debounce >= 3);
+    if (isSpacePressed && !prevSpacePressed) {
+        fireBullet();
+    }
+    prevSpacePressed = isSpacePressed;
+#endif
+
     const uint8_t levelBoost = (state.level > 12) ? 12 : state.level;
     int16_t bulletSpeed = 6 + (levelBoost / 6);
     if (state.rapidFireTimer > 0)

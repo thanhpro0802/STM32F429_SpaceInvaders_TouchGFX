@@ -147,6 +147,15 @@ protected:
     uint8_t enemyMoveDelay[MAX_ENEMIES];
     int32_t highScores[3]; // Luu top 3 diem cao nhat
     int16_t autoFireCooldown;
+
+#ifndef SIMULATOR
+    uint8_t btnW_Debounce;
+    uint8_t btnS_Debounce;
+    uint8_t btnA_Debounce;
+    uint8_t btnD_Debounce;
+    uint8_t btnSpace_Debounce;
+    bool prevSpacePressed;
+#endif
 };
 
 #endif // MODEL_HPP

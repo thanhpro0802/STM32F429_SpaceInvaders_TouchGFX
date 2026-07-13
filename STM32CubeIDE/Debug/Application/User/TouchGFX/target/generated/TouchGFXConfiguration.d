@@ -1,5 +1,5 @@
 Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
- C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/target/generated/TouchGFXConfiguration.cpp \
+ D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/target/generated/TouchGFXConfiguration.cpp \
  ../../TouchGFX/generated/texts/include/texts/TypedTextDatabase.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/TypedText.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Font.hpp \
@@ -59,6 +59,7 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../../TouchGFX/gui/include/gui/model/ModelListener.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
+ ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextureMapper.hpp \
  ../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenView.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/menuscreen_screen/MenuScreenViewBase.hpp \
  ../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp \
@@ -70,6 +71,9 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../../TouchGFX/gui/include/gui/gameoverscreen_screen/GameOverScreenView.hpp \
  ../../TouchGFX/generated/gui_generated/include/gui_generated/gameoverscreen_screen/GameOverScreenViewBase.hpp \
  ../../TouchGFX/gui/include/gui/gameoverscreen_screen/GameOverScreenPresenter.hpp \
+ ../../TouchGFX/gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.hpp \
+ ../../TouchGFX/generated/gui_generated/include/gui_generated/donotdisplayiconscreen_screen/DoNotDisplayIconScreenViewBase.hpp \
+ ../../TouchGFX/gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.hpp \
  ../../TouchGFX/generated/images/include/BitmapDatabase.hpp \
  ../../TouchGFX/generated/images/include/images/BitmapDatabase.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/VectorFontRendererImpl.hpp \
@@ -174,6 +178,7 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
 ../../TouchGFX/gui/include/gui/model/ModelListener.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextureMapper.hpp:
 ../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenView.hpp:
 ../../TouchGFX/generated/gui_generated/include/gui_generated/menuscreen_screen/MenuScreenViewBase.hpp:
 ../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp:
@@ -185,6 +190,9 @@ Application/User/TouchGFX/target/generated/TouchGFXConfiguration.o: \
 ../../TouchGFX/gui/include/gui/gameoverscreen_screen/GameOverScreenView.hpp:
 ../../TouchGFX/generated/gui_generated/include/gui_generated/gameoverscreen_screen/GameOverScreenViewBase.hpp:
 ../../TouchGFX/gui/include/gui/gameoverscreen_screen/GameOverScreenPresenter.hpp:
+../../TouchGFX/gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.hpp:
+../../TouchGFX/generated/gui_generated/include/gui_generated/donotdisplayiconscreen_screen/DoNotDisplayIconScreenViewBase.hpp:
+../../TouchGFX/gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.hpp:
 ../../TouchGFX/generated/images/include/BitmapDatabase.hpp:
 ../../TouchGFX/generated/images/include/images/BitmapDatabase.hpp:
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/VectorFontRendererImpl.hpp:

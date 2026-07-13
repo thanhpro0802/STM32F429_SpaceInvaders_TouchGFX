@@ -1,5 +1,5 @@
 Application/User/TouchGFX/target/TouchGFXHAL.o: \
- C:/TouchGFXProjects/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/target/TouchGFXHAL.cpp \
+ D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/target/TouchGFXHAL.cpp \
  ../../TouchGFX/target/TouchGFXHAL.hpp \
  ../../TouchGFX/target/generated/TouchGFXGeneratedHAL.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/HAL.hpp \
