@@ -33,6 +33,9 @@
     <ClCompile Include="..\..\gui\src\scoreboardscreen_screen\ScoreboardScreenPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\scoreboardscreen_screen\ScoreboardScreenView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\scoreboardscreen_screen\ScoreboardScreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\donotdisplayiconscreen_screen\DoNotDisplayIconScreenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\donotdisplayiconscreen_screen\DoNotDisplayIconScreenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\donotdisplayiconscreen_screen\DoNotDisplayIconScreenViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -195,6 +198,9 @@
     <ClInclude Include="..\..\gui\include\gui\scoreboardscreen_screen\ScoreboardScreenPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\scoreboardscreen_screen\ScoreboardScreenView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\scoreboardscreen_screen\ScoreboardScreenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\donotdisplayiconscreen_screen\DoNotDisplayIconScreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\donotdisplayiconscreen_screen\DoNotDisplayIconScreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\donotdisplayiconscreen_screen\DoNotDisplayIconScreenViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

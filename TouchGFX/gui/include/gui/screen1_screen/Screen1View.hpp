@@ -30,6 +30,7 @@ private:
     touchgfx::Image enemyBullets[5];
     touchgfx::Image playerBulletLeft;
     touchgfx::Image playerBulletRight;
+    touchgfx::Image playerBullet2;
     touchgfx::Image bossImage;
     touchgfx::Box bossHpBarBg;
     touchgfx::Box bossHpBar;

@@ -1,5 +1,7 @@
-build/MINGW32_NT-6.2/gui/src/common/FrontendApplication.o: \
- gui/src/common/FrontendApplication.cpp \
+build/MINGW32_NT-6.2/gui/src/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.o: \
+ gui/src/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.cpp \
+ gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.hpp \
+ generated/gui_generated/include/gui_generated/donotdisplayiconscreen_screen/DoNotDisplayIconScreenViewBase.hpp \
  gui/include/gui/common/FrontendApplication.hpp \
  generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp \
  ../Middlewares/ST/touchgfx/framework/include/mvp/MVPApplication.hpp \
@@ -41,32 +43,14 @@ build/MINGW32_NT-6.2/gui/src/common/FrontendApplication.o: \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferListener.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/Transition.hpp \
- gui/include/gui/model/Model.hpp gui/include/gui/common/FrontendHeap.hpp \
- generated/gui_generated/include/gui_generated/common/FrontendHeapBase.hpp \
- ../Middlewares/ST/touchgfx/framework/include/common/Meta.hpp \
- ../Middlewares/ST/touchgfx/framework/include/common/Partition.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/NoTransition.hpp \
- gui/include/gui/screen1_screen/Screen1View.hpp \
- generated/gui_generated/include/gui_generated/screen1_screen/Screen1ViewBase.hpp \
+ gui/include/gui/model/Model.hpp \
  ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp \
- gui/include/gui/screen1_screen/Screen1Presenter.hpp \
+ gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.hpp \
  gui/include/gui/model/ModelListener.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
- gui/include/gui/menuscreen_screen/MenuScreenView.hpp \
- generated/gui_generated/include/gui_generated/menuscreen_screen/MenuScreenViewBase.hpp \
- gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
- gui/include/gui/scoreboardscreen_screen/ScoreboardScreenView.hpp \
- generated/gui_generated/include/gui_generated/scoreboardscreen_screen/ScoreboardScreenViewBase.hpp \
- gui/include/gui/scoreboardscreen_screen/ScoreboardScreenPresenter.hpp \
- gui/include/gui/gameoverscreen_screen/GameOverScreenView.hpp \
- generated/gui_generated/include/gui_generated/gameoverscreen_screen/GameOverScreenViewBase.hpp \
- gui/include/gui/gameoverscreen_screen/GameOverScreenPresenter.hpp \
- gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.hpp \
- generated/gui_generated/include/gui_generated/donotdisplayiconscreen_screen/DoNotDisplayIconScreenViewBase.hpp \
- gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.hpp
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp
+gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.hpp:
+generated/gui_generated/include/gui_generated/donotdisplayiconscreen_screen/DoNotDisplayIconScreenViewBase.hpp:
 gui/include/gui/common/FrontendApplication.hpp:
 generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp:
 ../Middlewares/ST/touchgfx/framework/include/mvp/MVPApplication.hpp:
@@ -109,29 +93,8 @@ generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/Transition.hpp:
 gui/include/gui/model/Model.hpp:
-gui/include/gui/common/FrontendHeap.hpp:
-generated/gui_generated/include/gui_generated/common/FrontendHeapBase.hpp:
-../Middlewares/ST/touchgfx/framework/include/common/Meta.hpp:
-../Middlewares/ST/touchgfx/framework/include/common/Partition.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/NoTransition.hpp:
-gui/include/gui/screen1_screen/Screen1View.hpp:
-generated/gui_generated/include/gui_generated/screen1_screen/Screen1ViewBase.hpp:
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:
-gui/include/gui/screen1_screen/Screen1Presenter.hpp:
+gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.hpp:
 gui/include/gui/model/ModelListener.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
-gui/include/gui/menuscreen_screen/MenuScreenView.hpp:
-generated/gui_generated/include/gui_generated/menuscreen_screen/MenuScreenViewBase.hpp:
-gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
-gui/include/gui/scoreboardscreen_screen/ScoreboardScreenView.hpp:
-generated/gui_generated/include/gui_generated/scoreboardscreen_screen/ScoreboardScreenViewBase.hpp:
-gui/include/gui/scoreboardscreen_screen/ScoreboardScreenPresenter.hpp:
-gui/include/gui/gameoverscreen_screen/GameOverScreenView.hpp:
-generated/gui_generated/include/gui_generated/gameoverscreen_screen/GameOverScreenViewBase.hpp:
-gui/include/gui/gameoverscreen_screen/GameOverScreenPresenter.hpp:
-gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.hpp:
-generated/gui_generated/include/gui_generated/donotdisplayiconscreen_screen/DoNotDisplayIconScreenViewBase.hpp:
-gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.hpp:

@@ -89,6 +89,9 @@ build/MINGW32_NT-6.2/simulator/main.o: simulator/main.cpp \
  gui/include/gui/gameoverscreen_screen/GameOverScreenView.hpp \
  generated/gui_generated/include/gui_generated/gameoverscreen_screen/GameOverScreenViewBase.hpp \
  gui/include/gui/gameoverscreen_screen/GameOverScreenPresenter.hpp \
+ gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.hpp \
+ generated/gui_generated/include/gui_generated/donotdisplayiconscreen_screen/DoNotDisplayIconScreenViewBase.hpp \
+ gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.hpp \
  generated/gui_generated/include/gui_generated/common/SimConstants.hpp \
  ../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/SDL2TouchController.hpp \
  generated/simulator/include/simulator/mainBase.hpp
@@ -182,6 +185,9 @@ gui/include/gui/scoreboardscreen_screen/ScoreboardScreenPresenter.hpp:
 gui/include/gui/gameoverscreen_screen/GameOverScreenView.hpp:
 generated/gui_generated/include/gui_generated/gameoverscreen_screen/GameOverScreenViewBase.hpp:
 gui/include/gui/gameoverscreen_screen/GameOverScreenPresenter.hpp:
+gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.hpp:
+generated/gui_generated/include/gui_generated/donotdisplayiconscreen_screen/DoNotDisplayIconScreenViewBase.hpp:
+gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.hpp:
 generated/gui_generated/include/gui_generated/common/SimConstants.hpp:
 ../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/SDL2TouchController.hpp:
 generated/simulator/include/simulator/mainBase.hpp:

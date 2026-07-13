@@ -64,6 +64,9 @@ build/MINGW32_NT-6.2/generated/gui_generated/src/common/FrontendApplicationBase.
  gui/include/gui/gameoverscreen_screen/GameOverScreenView.hpp \
  generated/gui_generated/include/gui_generated/gameoverscreen_screen/GameOverScreenViewBase.hpp \
  gui/include/gui/gameoverscreen_screen/GameOverScreenPresenter.hpp \
+ gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.hpp \
+ generated/gui_generated/include/gui_generated/donotdisplayiconscreen_screen/DoNotDisplayIconScreenViewBase.hpp \
+ gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.hpp \
  generated/texts/include/texts/TextKeysAndLanguages.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/Texts.hpp \
  ../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp \
@@ -133,6 +136,9 @@ gui/include/gui/scoreboardscreen_screen/ScoreboardScreenPresenter.hpp:
 gui/include/gui/gameoverscreen_screen/GameOverScreenView.hpp:
 generated/gui_generated/include/gui_generated/gameoverscreen_screen/GameOverScreenViewBase.hpp:
 gui/include/gui/gameoverscreen_screen/GameOverScreenPresenter.hpp:
+gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenView.hpp:
+generated/gui_generated/include/gui_generated/donotdisplayiconscreen_screen/DoNotDisplayIconScreenViewBase.hpp:
+gui/include/gui/donotdisplayiconscreen_screen/DoNotDisplayIconScreenPresenter.hpp:
 generated/texts/include/texts/TextKeysAndLanguages.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Texts.hpp:
 ../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp:

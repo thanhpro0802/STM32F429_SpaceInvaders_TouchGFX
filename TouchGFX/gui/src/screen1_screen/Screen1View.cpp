@@ -34,6 +34,10 @@ Screen1View::Screen1View() : lastScore(-1), lastLives(-1), lastLevel(0)
         add(enemyBullets[i]);
     }
 
+    playerBullet2.setBitmap(touchgfx::Bitmap(BITMAP_LASER_PLAYER_ID));
+    playerBullet2.setVisible(false);
+    add(playerBullet2);
+
     bossImage.setXY(0, 0);
     bossImage.setBitmap(touchgfx::Bitmap(BITMAP_UFO_BOSS_ID));
     bossImage.setVisible(false);
@@ -242,6 +246,22 @@ void Screen1View::updateGameState(const GameState& state)
         }
     }
 
+    // Cap nhat dan thu 2 (DoubleShot)
+    if (playerBullet2.isVisible() != state.bullet2Active)
+    {
+        playerBullet2.setVisible(state.bullet2Active);
+        playerBullet2.invalidate();
+    }
+    if (state.bullet2Active)
+    {
+        if (playerBullet2.getX() != state.bullet2X || playerBullet2.getY() != state.bullet2Y)
+        {
+            playerBullet2.invalidate();
+            playerBullet2.setXY(state.bullet2X, state.bullet2Y);
+            playerBullet2.invalidate();
+        }
+    }
+
     for (int i = 0; i < 5; i++)
     {
         if (enemyBullets[i].isVisible() != state.enemyBullets[i].active)
@@ -282,8 +302,12 @@ void Screen1View::updateGameState(const GameState& state)
             itemBmp = BITMAP_ITEM_STAR_ID;
         else if (state.itemType == 2)
             itemBmp = BITMAP_ITEM_BOLT_ID;
-        else
-            itemBmp = BITMAP_ITEM_MISSILE_ID; // Item ten lua moi
+        else if (state.itemType == 3)
+            itemBmp = BITMAP_ITEM_MISSILE_ID;
+        else if (state.itemType == 4)
+            itemBmp = BITMAP_DOUBLESHOT_ID;
+        else // itemType == 5: TripleShot
+            itemBmp = BITMAP_TRIPLESHOT_ID;
             
         itemDrop.setBitmap(touchgfx::Bitmap(itemBmp));
 

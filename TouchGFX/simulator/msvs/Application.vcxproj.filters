@@ -220,6 +220,18 @@
     <Filter Include="Header Files\generated\gui_generated\gameoverscreen_screen">
       <UniqueIdentifier>A1FF0573-60C4-D5F4-8AEE-77D87260F884</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\gui\donotdisplayiconscreen_screen">
+      <UniqueIdentifier>0AD99616-B121-8EFA-FF19-340BC6A1D857</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\donotdisplayiconscreen_screen">
+      <UniqueIdentifier>EC631448-FB4B-725D-5343-6F9ED8B5E7B5</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\donotdisplayiconscreen_screen">
+      <UniqueIdentifier>22FE46EC-E33E-B58E-5EAD-E14450EBA26E</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\donotdisplayiconscreen_screen">
+      <UniqueIdentifier>237BED7C-4D73-680E-B42F-CDBFCCBEB1AD</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -287,6 +299,15 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\scoreboardscreen_screen\ScoreboardScreenViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\scoreboardscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\donotdisplayiconscreen_screen\DoNotDisplayIconScreenPresenter.cpp">
+      <Filter>Source Files\gui\donotdisplayiconscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\donotdisplayiconscreen_screen\DoNotDisplayIconScreenView.cpp">
+      <Filter>Source Files\gui\donotdisplayiconscreen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\donotdisplayiconscreen_screen\DoNotDisplayIconScreenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\donotdisplayiconscreen_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -765,6 +786,15 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\scoreboardscreen_screen\ScoreboardScreenViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\scoreboardscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\donotdisplayiconscreen_screen\DoNotDisplayIconScreenPresenter.hpp">
+      <Filter>Header Files\gui\donotdisplayiconscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\donotdisplayiconscreen_screen\DoNotDisplayIconScreenView.hpp">
+      <Filter>Header Files\gui\donotdisplayiconscreen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\donotdisplayiconscreen_screen\DoNotDisplayIconScreenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\donotdisplayiconscreen_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
