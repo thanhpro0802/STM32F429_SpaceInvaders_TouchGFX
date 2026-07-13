@@ -57,7 +57,7 @@ struct GameState
 
     int16_t rapidFireTimer;
 
-    EnemyBullet enemyBullets[5];
+    EnemyBullet enemyBullets[20];
 
     // Thong tin vu no
     int16_t explosionX;
@@ -87,8 +87,11 @@ struct GameState
     int16_t bossY;
     int16_t bossHp;
     int16_t bossMaxHp;
-    int8_t bossDirection; // 1: Phải, -1: Trái
+    int16_t bossDirection; // 1: Phải, -1: Trái
     int16_t bossTimer;
+    int8_t bossLaserPhase;      // 0: Normal, 1: Aiming, 2: Firing
+    int16_t bossLaserTimer;
+    int16_t bossLockedX;
 };
 
 class ModelListener;

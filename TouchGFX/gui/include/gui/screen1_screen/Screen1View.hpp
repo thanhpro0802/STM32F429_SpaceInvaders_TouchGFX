@@ -27,7 +27,7 @@ private:
     touchgfx::BitmapId getEnemyBitmap(uint8_t type);
 
     touchgfx::Image* enemyImages[MAX_ENEMIES];
-    touchgfx::Image enemyBullets[5];
+    touchgfx::Image enemyBullets[20];
     touchgfx::Image playerBulletLeft;
     touchgfx::Image playerBulletRight;
     touchgfx::Image playerBullet2;

@@ -26,7 +26,7 @@ Screen1View::Screen1View() : lastScore(-1), lastLives(-1), lastLevel(0)
     levelOnesDigit.setVisible(false);
     add(levelOnesDigit);
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 20; i++)
     {
         enemyBullets[i].setXY(0, 0);
         enemyBullets[i].setBitmap(touchgfx::Bitmap(BITMAP_LASER_ENEMY_ID));
@@ -262,11 +262,18 @@ void Screen1View::updateGameState(const GameState& state)
         }
     }
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 20; i++)
     {
-        if (enemyBullets[i].isVisible() != state.enemyBullets[i].active)
+        bool showBullet = state.enemyBullets[i].active;
+        if (state.bossLaserPhase == 1 && i >= 5 && i < 15)
         {
-            enemyBullets[i].setVisible(state.enemyBullets[i].active);
+            // Aiming flicker effect
+            showBullet = showBullet && (state.bossLaserTimer % 6 < 3);
+        }
+
+        if (enemyBullets[i].isVisible() != showBullet)
+        {
+            enemyBullets[i].setVisible(showBullet);
             enemyBullets[i].invalidate();
         }
         if (state.enemyBullets[i].active)
