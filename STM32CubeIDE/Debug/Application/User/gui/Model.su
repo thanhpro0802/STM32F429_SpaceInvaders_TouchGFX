@@ -1,10 +1,13 @@
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:96:6:void Model::initializeEnemiesForLevel(uint8_t)	104	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:11:1:Model::Model()	16	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:171:6:bool Model::areAllEnemiesDefeated() const	0	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:184:6:void Model::startNextLevel()	4	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:227:6:void Model::updateHighScores()	0	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:247:6:void Model::fireBullet()	8	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:286:6:void Model::setPlayerMoveDirection(int8_t)	0	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:295:6:void Model::setPlayerMoveDirectionY(int8_t)	0	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:305:6:void Model::tick()	112	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:1253:6:void Model::resetGame()	4	static
+D:\STM32CubeIDE_2.1.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/include/c++/14.3.1/cmath:150:3:constexpr float std::atan2(float, float)	16	static
+D:\STM32CubeIDE_2.1.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/include/c++/14.3.1/cmath:181:3:constexpr float std::cos(float)	16	static
+D:\STM32CubeIDE_2.1.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\tools\bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/include/c++/14.3.1/cmath:404:3:constexpr float std::sin(float)	16	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:11:1:Model::Model()	24	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:100:6:void Model::initializeEnemiesForLevel(uint8_t)	128	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:175:6:bool Model::areAllEnemiesDefeated() const	24	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:188:6:void Model::startNextLevel()	24	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:231:6:void Model::updateHighScores()	24	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:251:6:void Model::fireBullet()	16	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:290:6:void Model::setPlayerMoveDirection(int8_t)	16	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:299:6:void Model::setPlayerMoveDirectionY(int8_t)	16	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:309:6:void Model::tick()	288	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/model/Model.cpp:1257:6:void Model::resetGame()	24	static

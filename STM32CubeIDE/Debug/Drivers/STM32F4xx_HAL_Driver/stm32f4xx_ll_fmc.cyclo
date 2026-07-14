@@ -1,4 +1,4 @@
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c:239:20:FMC_NORSRAM_Init	3
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c:239:20:FMC_NORSRAM_Init	4
 D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c:361:19:FMC_NORSRAM_DeInit	2
 D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c:398:19:FMC_NORSRAM_Timing_Init	2
 D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c:451:19:FMC_NORSRAM_Extended_Timing_Init	2
@@ -7,7 +7,7 @@ D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Drivers/STM32F4xx_HAL_Driver/Sr
 D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c:599:19:FMC_NAND_Init	2
 D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c:657:19:FMC_NAND_CommonSpace_Timing_Init	2
 D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c:708:19:FMC_NAND_AttributeSpace_Timing_Init	2
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c:757:19:FMC_NAND_DeInit	2
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c:757:19:FMC_NAND_DeInit	3
 D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c:825:19:FMC_NAND_ECC_Enable	2
 D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c:858:19:FMC_NAND_ECC_Disable	2
 D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_fmc.c:892:19:FMC_NAND_GetECC	7

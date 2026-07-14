@@ -10,7 +10,11 @@
 
 Model::Model() : modelListener(0), playerMoveDirection(0), playerMoveTimer(0), playerMoveDirectionY(0), playerMoveTimerY(0), enemyShootCooldown(90), nextEnemyShooterIndex(0), missileAmmo(0)
 {
+#ifndef SIMULATOR
+    std::srand(HAL_GetTick());
+#else
     std::srand((unsigned int)std::time(0));
+#endif
     // Khoi tao gia tri mac dinh cho game
     state.playerX = 105;
     state.playerY = 280;
@@ -329,21 +333,21 @@ void Model::tick()
     }
 
     // Xu ly di chuyen Y
-    if (btnW_Debounce >= 3) {
+    if (btnW_Debounce >= 1) {
         setPlayerMoveDirectionY(-1);
-    } else if (btnS_Debounce >= 3) {
+    } else if (btnS_Debounce >= 1) {
         setPlayerMoveDirectionY(1);
     }
     
     // Xu ly di chuyen X
-    if (btnA_Debounce >= 3) {
+    if (btnA_Debounce >= 1) {
         setPlayerMoveDirection(-1);
-    } else if (btnD_Debounce >= 3) {
+    } else if (btnD_Debounce >= 1) {
         setPlayerMoveDirection(1);
     }
 
     // Xu ly ban (chi ban khi phat hien chuyen tu nha sang nhan)
-    bool isSpacePressed = (btnSpace_Debounce >= 3);
+    bool isSpacePressed = (btnSpace_Debounce >= 2);
     if (isSpacePressed && !prevSpacePressed) {
         fireBullet();
     }

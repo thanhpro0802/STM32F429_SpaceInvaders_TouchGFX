@@ -1,6 +1,14 @@
-../../TouchGFX/gui/include/gui/model/ModelListener.hpp:13:18:virtual void ModelListener::updateGameState(const GameState&)	0	static
-../../TouchGFX/gui/include/gui/scoreboardscreen_screen/ScoreboardScreenPresenter.hpp:28:13:ScoreboardScreenPresenter::~ScoreboardScreenPresenter()	0	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/scoreboardscreen_screen/ScoreboardScreenPresenter.cpp:10:6:virtual void ScoreboardScreenPresenter::activate()	0	static
-../../TouchGFX/gui/include/gui/scoreboardscreen_screen/ScoreboardScreenPresenter.hpp:28:13:virtual ScoreboardScreenPresenter::~ScoreboardScreenPresenter()	8	static
-../../TouchGFX/gui/include/gui/scoreboardscreen_screen/ScoreboardScreenPresenter.hpp:28:13:virtual void* ScoreboardScreenPresenter::_ZThn4_N25ScoreboardScreenPresenterD1Ev()	0	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/scoreboardscreen_screen/ScoreboardScreenPresenter.cpp:4:1:ScoreboardScreenPresenter::ScoreboardScreenPresenter(ScoreboardScreenView&)	0	static
+../../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:37:18:virtual void touchgfx::Presenter::activate()	16	static
+../../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:47:18:virtual void touchgfx::Presenter::deactivate()	16	static
+../../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:52:13:touchgfx::Presenter::~Presenter()	16	static
+../../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:52:13:virtual touchgfx::Presenter::~Presenter()	16	static
+../../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:58:5:touchgfx::Presenter::Presenter()	16	static
+../../TouchGFX/gui/include/gui/model/ModelListener.hpp:9:5:ModelListener::ModelListener()	16	static
+../../TouchGFX/gui/include/gui/model/ModelListener.hpp:11:13:ModelListener::~ModelListener()	16	static
+../../TouchGFX/gui/include/gui/model/ModelListener.hpp:11:13:virtual ModelListener::~ModelListener()	16	static
+../../TouchGFX/gui/include/gui/model/ModelListener.hpp:13:18:virtual void ModelListener::updateGameState(const GameState&)	16	static
+../../TouchGFX/gui/include/gui/scoreboardscreen_screen/ScoreboardScreenPresenter.hpp:28:13:ScoreboardScreenPresenter::~ScoreboardScreenPresenter()	16	static
+../../TouchGFX/gui/include/gui/scoreboardscreen_screen/ScoreboardScreenPresenter.hpp:28:13:virtual ScoreboardScreenPresenter::~ScoreboardScreenPresenter()	16	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/scoreboardscreen_screen/ScoreboardScreenPresenter.cpp:4:1:ScoreboardScreenPresenter::ScoreboardScreenPresenter(ScoreboardScreenView&)	16	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/scoreboardscreen_screen/ScoreboardScreenPresenter.cpp:10:6:virtual void ScoreboardScreenPresenter::activate()	16	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/scoreboardscreen_screen/ScoreboardScreenPresenter.cpp:15:6:virtual void ScoreboardScreenPresenter::deactivate()	16	static

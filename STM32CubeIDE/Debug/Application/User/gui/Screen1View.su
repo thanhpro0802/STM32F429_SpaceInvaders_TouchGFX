@@ -1,33 +1,64 @@
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:147:23:virtual touchgfx::Drawable* touchgfx::Drawable::getFirstChild()	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:315:18:virtual void touchgfx::Drawable::setX(int16_t)	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:327:18:virtual void touchgfx::Drawable::setY(int16_t)	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:356:18:virtual void touchgfx::Drawable::setWidth(int16_t)	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:368:18:virtual void touchgfx::Drawable::setHeight(int16_t)	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:378:18:virtual void touchgfx::Drawable::childGeometryChanged()	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:389:18:virtual void touchgfx::Drawable::handleClickEvent(const touchgfx::ClickEvent&)	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:401:18:virtual void touchgfx::Drawable::handleGestureEvent(const touchgfx::GestureEvent&)	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:490:18:virtual void touchgfx::Drawable::handleDragEvent(const touchgfx::DragEvent&)	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:501:18:virtual void touchgfx::Drawable::handleTickEvent()	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:588:18:virtual void touchgfx::Drawable::moveTo(int16_t, int16_t)	4	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:703:18:virtual void touchgfx::Drawable::setupDrawChain(const touchgfx::Rect&, touchgfx::Drawable**)	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	0	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:171:6:virtual void Screen1View::tearDownScreen()	0	static
-../../TouchGFX/gui/include/gui/screen1_screen/Screen1View.hpp:16:13:Screen1View::~Screen1View()	8	static
-../../TouchGFX/gui/include/gui/screen1_screen/Screen1View.hpp:16:13:virtual Screen1View::~Screen1View()	8	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:121:18:virtual void touchgfx::Drawable::invalidateContent() const	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp:45:18:virtual void touchgfx::Widget::getLastChild(int16_t, int16_t, touchgfx::Drawable**)	0	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:176:6:virtual void Screen1View::handleKeyEvent(uint8_t)	0	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Types.hpp:91:5:touchgfx::colortype::colortype(uint32_t)	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Types.hpp:127:5:touchgfx::Rect::Rect()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Bitmap.hpp:136:5:touchgfx::Bitmap::Bitmap(touchgfx::BitmapId)	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:48:5:touchgfx::Drawable::Drawable()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:62:13:touchgfx::Drawable::~Drawable()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:62:13:virtual touchgfx::Drawable::~Drawable()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:121:18:virtual void touchgfx::Drawable::invalidateContent() const	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:147:23:virtual touchgfx::Drawable* touchgfx::Drawable::getFirstChild()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:233:10:void touchgfx::Drawable::setPosition(int16_t, int16_t, int16_t, int16_t)	24	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:273:13:int16_t touchgfx::Drawable::getX() const	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:283:13:int16_t touchgfx::Drawable::getY() const	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:293:13:int16_t touchgfx::Drawable::getWidth() const	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:315:18:virtual void touchgfx::Drawable::setX(int16_t)	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:327:18:virtual void touchgfx::Drawable::setY(int16_t)	16	static
 ../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:343:10:void touchgfx::Drawable::setXY(int16_t, int16_t)	16	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:233:10:void touchgfx::Drawable::setPosition(int16_t, int16_t, int16_t, int16_t)	16	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:33:5:touchgfx::Box::Box()	0	static
-../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:50:5:touchgfx::Image::Image(const touchgfx::Bitmap&)	8	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:70:20:touchgfx::BitmapId Screen1View::getNumBitmap(uint8_t)	40	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:82:20:touchgfx::BitmapId Screen1View::getEnemyBitmap(uint8_t)	0	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:92:6:void Screen1View::setScoreDisplay(int32_t)	32	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:114:6:void Screen1View::setLivesDisplay(int8_t)	16	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:491:6:void Screen1View::updateLevelIntro(const GameState&)	56	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:201:6:void Screen1View::updateGameState(const GameState&)	72	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:516:6:void Screen1View::gotoGameOverScreen()	8	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:17:1:Screen1View::Screen1View()	88	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:122:6:virtual void Screen1View::setupScreen()	40	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:356:18:virtual void touchgfx::Drawable::setWidth(int16_t)	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:368:18:virtual void touchgfx::Drawable::setHeight(int16_t)	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:378:18:virtual void touchgfx::Drawable::childGeometryChanged()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:389:18:virtual void touchgfx::Drawable::handleClickEvent(const touchgfx::ClickEvent&)	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:401:18:virtual void touchgfx::Drawable::handleGestureEvent(const touchgfx::GestureEvent&)	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:413:10:void touchgfx::Drawable::setWidthHeight(int16_t, int16_t)	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:490:18:virtual void touchgfx::Drawable::handleDragEvent(const touchgfx::DragEvent&)	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:501:18:virtual void touchgfx::Drawable::handleTickEvent()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:515:10:void touchgfx::Drawable::setVisible(bool)	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:537:10:bool touchgfx::Drawable::isVisible() const	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:549:10:bool touchgfx::Drawable::isTouchable() const	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:588:18:virtual void touchgfx::Drawable::moveTo(int16_t, int16_t)	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:625:10:void touchgfx::Drawable::resetDrawChainCache()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:703:18:virtual void touchgfx::Drawable::setupDrawChain(const touchgfx::Rect&, touchgfx::Drawable**)	24	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp:45:18:virtual void touchgfx::Widget::getLastChild(int16_t, int16_t, touchgfx::Drawable**)	24	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:115:18:virtual void touchgfx::Screen::tearDownScreen()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:223:10:void touchgfx::Screen::add(touchgfx::Drawable&)	16	static
+../../TouchGFX/gui/include/gui/model/Model.hpp:116:16:GameState& Model::getGameState()	16	static
+../../TouchGFX/gui/include/gui/screen1_screen/Screen1Presenter.hpp:32:22:const GameState& Screen1Presenter::getGameState() const	16	static
+../../TouchGFX/gui/include/gui/screen1_screen/Screen1Presenter.hpp:35:10:void Screen1Presenter::setPlayerMoveDirection(int8_t)	16	static
+../../TouchGFX/gui/include/gui/screen1_screen/Screen1Presenter.hpp:40:10:void Screen1Presenter::setPlayerMoveDirectionY(int8_t)	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp:36:7:touchgfx::Widget::Widget()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp:36:7:touchgfx::Widget::~Widget()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp:36:7:virtual touchgfx::Widget::~Widget()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:33:5:touchgfx::Box::Box()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:62:10:void touchgfx::Box::setColor(touchgfx::colortype)	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:50:5:touchgfx::Image::Image(const touchgfx::Bitmap&)	16	static
+../../TouchGFX/generated/gui_generated/include/gui_generated/screen1_screen/Screen1ViewBase.hpp:21:26:FrontendApplication& Screen1ViewBase::application()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:38:7:touchgfx::Image::~Image()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:38:7:virtual touchgfx::Image::~Image()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextureMapper.hpp:46:7:touchgfx::TextureMapper::~TextureMapper()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextureMapper.hpp:46:7:virtual touchgfx::TextureMapper::~TextureMapper()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:29:7:touchgfx::Box::~Box()	16	static
+../../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:29:7:virtual touchgfx::Box::~Box()	16	static
+../../TouchGFX/gui/include/gui/screen1_screen/Screen1View.hpp:16:13:Screen1View::~Screen1View()	24	static
+../../TouchGFX/gui/include/gui/screen1_screen/Screen1View.hpp:16:13:virtual Screen1View::~Screen1View()	16	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:17:1:Screen1View::Screen1View()	120	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:70:20:touchgfx::BitmapId Screen1View::getNumBitmap(uint8_t)	48	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:82:20:touchgfx::BitmapId Screen1View::getEnemyBitmap(uint8_t)	16	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:92:6:void Screen1View::setScoreDisplay(int32_t)	56	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:114:6:void Screen1View::setLivesDisplay(int8_t)	32	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:122:6:virtual void Screen1View::setupScreen()	48	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:171:6:virtual void Screen1View::tearDownScreen()	16	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:176:6:virtual void Screen1View::handleKeyEvent(uint8_t)	16	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:201:6:void Screen1View::updateGameState(const GameState&)	80	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:491:6:void Screen1View::updateLevelIntro(const GameState&)	32	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:516:6:void Screen1View::gotoGameOverScreen()	16	static
