@@ -1,6 +1,0 @@
-../../TouchGFX/gui/include/gui/model/ModelListener.hpp:13:18:virtual void ModelListener::updateGameState(const GameState&)	1
-../../TouchGFX/gui/include/gui/scoreboardscreen_screen/ScoreboardScreenPresenter.hpp:28:13:ScoreboardScreenPresenter::~ScoreboardScreenPresenter()	1
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/scoreboardscreen_screen/ScoreboardScreenPresenter.cpp:10:6:virtual void ScoreboardScreenPresenter::activate()	1
-../../TouchGFX/gui/include/gui/scoreboardscreen_screen/ScoreboardScreenPresenter.hpp:28:13:virtual ScoreboardScreenPresenter::~ScoreboardScreenPresenter()	1
-../../TouchGFX/gui/include/gui/scoreboardscreen_screen/ScoreboardScreenPresenter.hpp:28:13:virtual void* ScoreboardScreenPresenter::_ZThn4_N25ScoreboardScreenPresenterD1Ev()	1
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/scoreboardscreen_screen/ScoreboardScreenPresenter.cpp:4:1:ScoreboardScreenPresenter::ScoreboardScreenPresenter(ScoreboardScreenView&)	1

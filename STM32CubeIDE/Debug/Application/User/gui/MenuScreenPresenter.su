@@ -1,6 +1,14 @@
-../../TouchGFX/gui/include/gui/model/ModelListener.hpp:13:18:virtual void ModelListener::updateGameState(const GameState&)	0	static
-../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp:28:13:MenuScreenPresenter::~MenuScreenPresenter()	0	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/menuscreen_screen/MenuScreenPresenter.cpp:10:6:virtual void MenuScreenPresenter::activate()	0	static
-../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp:28:13:virtual MenuScreenPresenter::~MenuScreenPresenter()	8	static
-../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp:28:13:virtual void* MenuScreenPresenter::_ZThn4_N19MenuScreenPresenterD1Ev()	0	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/menuscreen_screen/MenuScreenPresenter.cpp:4:1:MenuScreenPresenter::MenuScreenPresenter(MenuScreenView&)	0	static
+../../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:37:18:virtual void touchgfx::Presenter::activate()	16	static
+../../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:47:18:virtual void touchgfx::Presenter::deactivate()	16	static
+../../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:52:13:touchgfx::Presenter::~Presenter()	16	static
+../../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:52:13:virtual touchgfx::Presenter::~Presenter()	16	static
+../../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:58:5:touchgfx::Presenter::Presenter()	16	static
+../../TouchGFX/gui/include/gui/model/ModelListener.hpp:9:5:ModelListener::ModelListener()	16	static
+../../TouchGFX/gui/include/gui/model/ModelListener.hpp:11:13:ModelListener::~ModelListener()	16	static
+../../TouchGFX/gui/include/gui/model/ModelListener.hpp:11:13:virtual ModelListener::~ModelListener()	16	static
+../../TouchGFX/gui/include/gui/model/ModelListener.hpp:13:18:virtual void ModelListener::updateGameState(const GameState&)	16	static
+../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp:28:13:MenuScreenPresenter::~MenuScreenPresenter()	16	static
+../../TouchGFX/gui/include/gui/menuscreen_screen/MenuScreenPresenter.hpp:28:13:virtual MenuScreenPresenter::~MenuScreenPresenter()	16	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/menuscreen_screen/MenuScreenPresenter.cpp:4:1:MenuScreenPresenter::MenuScreenPresenter(MenuScreenView&)	16	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/menuscreen_screen/MenuScreenPresenter.cpp:10:6:virtual void MenuScreenPresenter::activate()	16	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/gui/src/menuscreen_screen/MenuScreenPresenter.cpp:15:6:virtual void MenuScreenPresenter::deactivate()	16	static

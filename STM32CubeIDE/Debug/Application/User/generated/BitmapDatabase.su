@@ -1,2 +1,2 @@
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/generated/images/src/BitmapDatabase.cpp:181:37:const touchgfx::Bitmap::BitmapData* BitmapDatabase::getInstance()	0	static
-D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/generated/images/src/BitmapDatabase.cpp:186:10:uint16_t BitmapDatabase::getInstanceSize()	0	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/generated/images/src/BitmapDatabase.cpp:181:37:const touchgfx::Bitmap::BitmapData* BitmapDatabase::getInstance()	4	static
+D:/Lab_He_Nhung/STM32F429_SpaceInvaders_TouchGFX/TouchGFX/generated/images/src/BitmapDatabase.cpp:186:10:uint16_t BitmapDatabase::getInstanceSize()	4	static

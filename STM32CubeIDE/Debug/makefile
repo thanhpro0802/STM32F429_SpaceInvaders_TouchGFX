@@ -18,9 +18,8 @@ RM := rm -rf
 -include Application/User/TouchGFX/target/generated/subdir.mk
 -include Application/User/TouchGFX/target/subdir.mk
 -include Application/User/TouchGFX/App/subdir.mk
+-include Application/User/Startup/subdir.mk
 -include Application/User/Core/subdir.mk
--include Application/User/subdir.mk
--include Application/Startup/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -85,9 +84,6 @@ default.size.stdout \
 OBJDUMP_LIST += \
 STM32F429I_DISCO_REV_D01.list \
 
-OBJCOPY_HEX += \
-STM32F429I_DISCO_REV_D01.hex \
-
 
 # All Target
 all: main-build
@@ -96,8 +92,8 @@ all: main-build
 main-build: STM32F429I_DISCO_REV_D01.elf secondary-outputs
 
 # Tool invocations
-STM32F429I_DISCO_REV_D01.elf STM32F429I_DISCO_REV_D01.map: $(OBJS) $(USER_OBJS) D:\Lab_He_Nhung\STM32F429_SpaceInvaders_TouchGFX\STM32F429XX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "STM32F429I_DISCO_REV_D01.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Lab_He_Nhung\STM32F429_SpaceInvaders_TouchGFX\STM32F429XX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F429I_DISCO_REV_D01.map" -Wl,--gc-sections -static -L../../Middlewares/ST/touchgfx/lib/core/cortex_m4f/gcc --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+STM32F429I_DISCO_REV_D01.elf STM32F429I_DISCO_REV_D01.map: $(OBJS) $(USER_OBJS) D:\Lab_He_Nhung\STM32F429_SpaceInvaders_TouchGFX\STM32CubeIDE\STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "STM32F429I_DISCO_REV_D01.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Lab_He_Nhung\STM32F429_SpaceInvaders_TouchGFX\STM32CubeIDE\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32F429I_DISCO_REV_D01.map" -Wl,--gc-sections -static -L../../Middlewares/ST/touchgfx/lib/core/cortex_m4f/gcc --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -111,17 +107,12 @@ STM32F429I_DISCO_REV_D01.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_T
 	@echo 'Finished building: $@'
 	@echo ' '
 
-STM32F429I_DISCO_REV_D01.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "STM32F429I_DISCO_REV_D01.hex"
-	@echo 'Finished building: $@'
-	@echo ' '
-
 # Other Targets
 clean:
-	-$(RM) STM32F429I_DISCO_REV_D01.elf STM32F429I_DISCO_REV_D01.hex STM32F429I_DISCO_REV_D01.list STM32F429I_DISCO_REV_D01.map default.size.stdout
+	-$(RM) STM32F429I_DISCO_REV_D01.elf STM32F429I_DISCO_REV_D01.list STM32F429I_DISCO_REV_D01.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'

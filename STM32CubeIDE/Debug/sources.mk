@@ -25,7 +25,6 @@ S_DEPS :=
 CXXM_DEPS := 
 C_DEPS := 
 CC_DEPS := 
-OBJCOPY_HEX := 
 SIZE_OUTPUT := 
 C++_DEPS := 
 SU_FILES := 
@@ -39,12 +38,11 @@ CPP_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-Application/Startup \
 Application/User/Core \
+Application/User/Startup \
 Application/User/TouchGFX/App \
 Application/User/TouchGFX/target \
 Application/User/TouchGFX/target/generated \
-Application/User \
 Application/User/generated \
 Application/User/gui \
 Drivers/BSP/Components \
